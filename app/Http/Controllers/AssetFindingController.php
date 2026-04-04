@@ -166,4 +166,24 @@ class AssetFindingController extends Controller
 
         return redirect()->route('findings.show', $finding)->with('success', 'Persetujuan dibatalkan. Status kembali ke Pending Approval.');
     }
+
+    /**
+     * Update the status of the finding.
+     */
+    public function updateStatus(Request $request, AssetFinding $finding)
+    {
+        $request->validate([
+            'status' => 'required|string',
+        ]);
+
+        $user = auth()->user();
+
+        if ($user->role !== 'CPM' && $user->id !== $finding->pic_id) {
+            return redirect()->back()->with('error', 'Hanya CPM atau PIC (Penanggung Jawab) yang dapat mengubah status.');
+        }
+
+        $finding->update(['status' => $request->status]);
+
+        return redirect()->route('findings.show', $finding)->with('success', 'Status temuan berhasil diperbarui.');
+    }
 }

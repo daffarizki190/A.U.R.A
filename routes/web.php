@@ -19,6 +19,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
         // Asset Findings — semua user bisa CRUD
         Route::resource('findings', AssetFindingController::class);
+        Route::patch('findings/{finding}/status', [AssetFindingController::class, 'updateStatus'])->name('findings.updateStatus');
 
         // Asset Findings — hanya CPM
         Route::middleware('role:CPM')->group(function () {

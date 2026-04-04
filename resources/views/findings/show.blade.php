@@ -157,12 +157,33 @@
             </div>
         </div>
 
-        <!-- Deadline -->
+        <!-- Status Update -->
         <div class="glass-card" style="padding: 32px; border-radius: 24px;">
-            <label style="display: block; font-size: 0.75rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase; margin-bottom: 12px;">Target Penyelesaian</label>
-            <div style="font-size: 1.5rem; font-weight: 800; color: var(--accent); letter-spacing: -0.02em;">
-                {{ $finding->estimated_completion_date ?: 'Belum Ditetapkan' }}
-            </div>
+            <label style="display: block; font-size: 0.75rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase; margin-bottom: 16px;">Status Pengerjaan</label>
+            
+            @if(auth()->user()->role == 'CPM' || auth()->user()->id == $finding->pic_id)
+                <form action="{{ route('findings.updateStatus', $finding->id) }}" method="POST">
+                    @csrf
+                    @method('PATCH')
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <select name="status" style="width: 100%; padding: 14px 16px; background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: 12px; color: var(--text-main); font-weight: 600; outline: none; appearance: none; cursor: pointer;">
+                            <option value="Pending Approval" {{ $finding->status == 'Pending Approval' ? 'selected' : '' }} style="background: #1a1a1a; color: white;">Pending Approval</option>
+                            <option value="Open" {{ $finding->status == 'Open' ? 'selected' : '' }} style="background: #1a1a1a; color: white;">Open</option>
+                            <option value="On Progress" {{ $finding->status == 'On Progress' ? 'selected' : '' }} style="background: #1a1a1a; color: white;">On Progress</option>
+                            <option value="Done" {{ $finding->status == 'Done' ? 'selected' : '' }} style="background: #1a1a1a; color: white;">Done</option>
+                        </select>
+                        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 14px; border-radius: 12px;">
+                            <ion-icon name="save-outline" style="margin-right: 8px; font-size: 1.1rem;"></ion-icon>
+                            Simpan Status
+                        </button>
+                    </div>
+                </form>
+            @else
+                <div style="font-size: 1.5rem; font-weight: 800; color: var(--accent); letter-spacing: -0.02em;">
+                    {{ $finding->status }}
+                </div>
+                <div style="font-size: 0.75rem; color: var(--text-dim); margin-top: 8px;">Hanya PIC atau CPM yang dapat memperbarui.</div>
+            @endif
         </div>
     </div>
 </div>
