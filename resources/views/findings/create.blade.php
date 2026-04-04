@@ -4,13 +4,13 @@
 <div style="margin-bottom: 32px;">
     <a href="{{ route('findings.index') }}" style="color: var(--text-dim); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 600; transition: color 0.2s;" onmouseover="this.style.color='var(--text-main)'" onmouseout="this.style.color='var(--text-dim)'">
         <ion-icon name="arrow-back" style="font-size: 1rem;"></ion-icon> 
-        Back to List
+        Kembali ke Daftar Laporan
     </a>
 </div>
 
 <header style="margin-bottom: 40px;">
-    <h1 style="font-size: 2.25rem; font-weight: 800; letter-spacing: -0.03em;">New Asset Finding</h1>
-    <p style="color: var(--text-dim); font-size: 0.95rem;">Report a new facility issue or equipment damage</p>
+    <h1 style="font-size: 2.25rem; font-weight: 800; letter-spacing: -0.03em;">Laporan Temuan Baru</h1>
+    <p style="color: var(--text-dim); font-size: 0.95rem;">Laporkan kendala fasilitas atau kerusakan peralatan gedung</p>
 </header>
 
 <div class="glass-card" style="padding: 40px; max-width: 800px; border-radius: 24px;">
