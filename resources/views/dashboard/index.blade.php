@@ -74,6 +74,7 @@
                         <thead>
                             <tr>
                                 <th>ID Laporan</th>
+                                <th>Tgl Temuan</th>
                                 <th>Lokasi atau Aset</th>
                                 <th>Pelapor</th>
                                 <th>Aksi</th>
@@ -83,6 +84,7 @@
                             @foreach($role_data['pending_approvals'] as $finding)
                             <tr>
                                 <td style="font-weight: 600; color: var(--accent);">{{ $finding->finding_code }}</td>
+                                <td>{{ \Carbon\Carbon::parse($finding->finding_date)->format('d/m/Y') }}</td>
                                 <td>
                                     <div style="font-weight: 600;">{{ $finding->asset_type }}</div>
                                     <div style="font-size: 0.75rem; color: var(--text-dim);">{{ $finding->location }}</div>
@@ -167,7 +169,12 @@
                             </div>
                             <div style="display: flex; flex-direction: column; align-items: flex-end;">
                                 <span class="badge badge-{{ strtolower(str_replace(' ', '', $task->status)) }}">{{ $task->status }}</span>
-                                <div style="margin-top: 8px; font-size: 0.7rem; color: var(--text-dim);">Tenggat: {{ $task->estimated_completion_date ?: '-' }}</div>
+                                <div style="margin-top: 8px; font-size: 0.7rem; color: var(--text-dim); text-align: right;">
+                                    <div>Tgl Temuan: {{ \Carbon\Carbon::parse($task->finding_date)->format('d M Y') }}</div>
+                                    @if($task->estimated_completion_date)
+                                        <div style="color: var(--primary); font-weight: 500; margin-top: 2px;">Target: {{ \Carbon\Carbon::parse($task->estimated_completion_date)->format('d M Y') }}</div>
+                                    @endif
+                                </div>
                             </div>
                         </a>
                     @endforeach
