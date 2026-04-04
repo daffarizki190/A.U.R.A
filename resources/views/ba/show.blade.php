@@ -21,7 +21,7 @@
     
     <div style="display: flex; gap: 12px;">
         @if($ba->status == 'Submitted' && (auth()->id() == $ba->pic_id || auth()->user()->role == 'CPM'))
-            <a href="{{ route('ba.edit', $ba->id) }}" class="btn-primary" style="background: rgba(255,255,255,0.05); color: var(--text-main); border: 1px solid var(--border);">
+            <a href="{{ route('ba.edit', $ba->id) }}" class="btn-primary" style="background: rgba(0,0,0,0.03); color: var(--text-main); border: 1px solid var(--border);">
                 <ion-icon name="create-outline" style="margin-right: 8px;"></ion-icon> Edit Dokumen
             </a>
         @endif
@@ -32,7 +32,7 @@
             </a>
         @endif
         
-        <a href="{{ route('ba.print', $ba->id) }}" target="_blank" class="btn-primary" style="background: rgba(255,255,255,0.05); color: var(--text-main); border: 1px solid var(--border);">
+        <a href="{{ route('ba.print', $ba->id) }}" target="_blank" class="btn-primary" style="background: rgba(0,0,0,0.03); color: var(--text-main); border: 1px solid var(--border);">
             <ion-icon name="print-outline" style="margin-right: 8px;"></ion-icon> Cetak PDF/Print
         </a>
     </div>
@@ -65,14 +65,14 @@
                     <div style="font-weight: 600; font-size: 1rem; color: var(--text-main);">{{ $ba->license_plate ?: '-' }}</div>
                 </div>
                 @if($ba->attachment)
-                <div style="grid-column: span 2; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.05);">
+                <div style="grid-column: span 2; padding-top: 16px; border-top: 1px solid rgba(0,0,0,0.03);">
                     <label style="display: block; font-size: 0.75rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase; margin-bottom: 12px;">Dokumen Lampiran</label>
                     @php
                         $attachmentUrl = str_starts_with($ba->attachment, 'http') 
                             ? $ba->attachment 
                             : Storage::disk('s3')->url($ba->attachment);
                     @endphp
-                    <a href="{{ $attachmentUrl }}" target="_blank" class="btn-primary" style="background: rgba(255,255,255,0.05); color: var(--text-main); border: 1px solid var(--border); width: fit-content;">
+                    <a href="{{ $attachmentUrl }}" target="_blank" class="btn-primary" style="background: rgba(0,0,0,0.03); color: var(--text-main); border: 1px solid var(--border); width: fit-content;">
                         <ion-icon name="document-attach-outline" style="margin-right: 8px; font-size: 1.2rem;"></ion-icon>
                         Unduh atau Lihat Lampiran
                      </a>
@@ -82,7 +82,7 @@
 
             <div style="margin-top: 40px;">
                 <label style="display: block; font-size: 0.75rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase; margin-bottom: 12px;">Kronologi Rinci</label>
-                <div style="padding: 32px; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 16px; line-height: 1.8; color: var(--text-secondary); font-size: 1rem;">
+                <div style="padding: 32px; background: rgba(0,0,0,0.02); border: 1px solid var(--border); border-radius: 16px; line-height: 1.8; color: var(--text-secondary); font-size: 1rem;">
                     {!! nl2br(e($ba->chronology)) !!}
                 </div>
             </div>

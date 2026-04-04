@@ -80,7 +80,7 @@
                 <ion-icon name="document-text-outline" style="margin-right: 8px;"></ion-icon>
                 Ajukan Dokumen
             </button>
-            <a href="{{ route('ba.index') }}" class="btn-primary" style="flex: 1; height: 52px; background: rgba(255,255,255,0.05); color: var(--text-main); border: 1px solid var(--border);">
+            <a href="{{ route('ba.index') }}" class="btn-primary" style="flex: 1; height: 52px; background: rgba(0,0,0,0.03); color: var(--text-main); border: 1px solid var(--border);">
                 Batal
             </a>
         </div>

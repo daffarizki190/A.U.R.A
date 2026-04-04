@@ -35,7 +35,7 @@
         </div>
         <button type="submit" class="btn-primary" style="height: 48px; min-width: 120px;">Cari</button>
         @if(request()->anyFilled(['status', 'location']))
-            <a href="{{ route('findings.index') }}" class="btn-primary" style="height: 48px; background: rgba(255,255,255,0.05); color: var(--text-main);">Reset</a>
+            <a href="{{ route('findings.index') }}" class="btn-primary" style="height: 48px; background: rgba(0,0,0,0.03); color: var(--text-main);">Reset</a>
         @endif
     </form>
 </div>
@@ -82,7 +82,7 @@
             @empty
                 <tr>
                     <td colspan="7" style="text-align: center; padding: 80px 20px;">
-                        <div style="display: inline-flex; width: 64px; height: 64px; border-radius: 20px; background: rgba(255,255,255,0.02); align-items: center; justify-content: center; margin-bottom: 16px; color: var(--text-dim);">
+                        <div style="display: inline-flex; width: 64px; height: 64px; border-radius: 20px; background: rgba(0,0,0,0.02); align-items: center; justify-content: center; margin-bottom: 16px; color: var(--text-dim);">
                             <ion-icon name="search-outline" style="font-size: 2rem;"></ion-icon>
                         </div>
                         <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 4px;">Tidak ada data ditemukan</div>
