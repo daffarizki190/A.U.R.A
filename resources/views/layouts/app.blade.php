@@ -51,7 +51,7 @@
                             <div
                                 style="font-weight: 600; font-size: 0.85rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                                 {{ auth()->user()->name }}</div>
-                            <div style="font-size: 0.7rem; color: var(--text-dim);">{{ auth()->user()->role }}</div>
+                            <div style="font-size: 0.7rem; color: var(--text-dim);">Jabatan: {{ auth()->user()->role }}</div>
                         </div>
                     </div>
                     <form action="{{ route('logout') }}" method="POST">

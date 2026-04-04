@@ -161,7 +161,7 @@
                 </div>
                 <div>
                     <div style="font-weight: 700; font-size: 1rem;">{{ $ba->pic ? $ba->pic->name : 'Belum Ditentukan' }}</div>
-                    <div style="font-size: 0.75rem; color: var(--text-dim);">Peran: {{ $ba->pic ? $ba->pic->role : 'Tidak Diketahui' }}</div>
+                    <div style="font-size: 0.75rem; color: var(--text-dim);">Jabatan: {{ $ba->pic ? $ba->pic->role : 'Tidak Diketahui' }}</div>
                 </div>
             </div>
         </div>
