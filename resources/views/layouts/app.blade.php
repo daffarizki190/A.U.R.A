@@ -39,6 +39,14 @@
                         <ion-icon name="document-text"></ion-icon>
                         Berita Acara
                     </a>
+
+                    @if(auth()->user()->role === 'CPM')
+                        <div style="margin-top: 24px; padding: 0 20px; font-size: 0.65rem; font-weight: 800; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.1em;">Monitoring</div>
+                        <a href="{{ route('admin.logs') }}" class="nav-link {{ request()->is('admin/logs*') ? 'active' : '' }}">
+                            <ion-icon name="journal"></ion-icon>
+                            Log Aktivitas
+                        </a>
+                    @endif
                 </nav>
 
                 <div class="user-info">

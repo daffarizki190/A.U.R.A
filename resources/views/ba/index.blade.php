@@ -70,7 +70,7 @@
                     </td>
                     <td>
                         <span class="badge badge-{{ strtolower(str_replace(' ', '', $ba->status)) }}">
-                            {{ $ba->status }}
+                            {{ str_replace('Submitted', 'Waiting Approved', str_replace('Processed', 'ON PROGRES', str_replace('Done', 'DONE', $ba->status))) }}
                         </span>
                     </td>
                     <td style="text-align: right;">

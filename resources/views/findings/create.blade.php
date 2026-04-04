@@ -52,15 +52,15 @@
         <div style="padding: 16px; background: rgba(0, 122, 255, 0.05); border: 1px solid rgba(0, 122, 255, 0.1); border-radius: 12px; margin-bottom: 32px; display: flex; align-items: flex-start; gap: 12px;">
             <ion-icon name="information-circle" style="color: var(--primary); font-size: 1.25rem; margin-top: 2px;"></ion-icon>
             <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">
-                <strong style="color: var(--text-main);">Penugasan Penanggung Jawab Otomatis:</strong><br>
-                Penanggung jawab untuk laporan ini akan otomatis dialokasikan ke akun Anda: <span style="color: var(--primary); font-weight: 600;">{{ auth()->user()->name }}</span>
+                <strong style="color: var(--text-main);">Otorisasi Pelaporan:</strong><br>
+                Laporan ini akan didaftarkan atas nama Anda sebagai penanggung jawab utama (PIC). Status awal akan otomatis diset menjadi <span style="color: var(--warning); font-weight: 700;">Waiting Approved</span>.
             </div>
         </div>
         
         <div style="display: flex; gap: 16px;">
-            <button type="submit" class="btn-primary" style="flex: 2; height: 52px; font-size: 1rem;">
+            <button type="submit" class="btn-primary" style="flex: 2; height: 52px; font-size: 1rem; box-shadow: 0 10px 20px rgba(0, 122, 255, 0.15);">
                 <ion-icon name="cloud-upload-outline" style="margin-right: 8px;"></ion-icon>
-                Simpan Laporan
+                Simpan & Kirim Laporan
             </button>
             <a href="{{ route('findings.index') }}" class="btn-primary" style="flex: 1; height: 52px; background: rgba(0,0,0,0.03); color: var(--text-main); border: 1px solid var(--border);">
                 Batal

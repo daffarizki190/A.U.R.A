@@ -2,10 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class BeritaAcara extends Model
 {
+    use HasFactory, LogsActivity;
+
     protected $fillable = [
         'ba_number',
         'ba_type',
