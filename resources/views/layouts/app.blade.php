@@ -8,6 +8,8 @@
     <!-- Ionicons -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <!-- Hotwire Turbo for SPA-like experience -->
+    <script type="module" src="https://cdn.skypack.dev/@hotwired/turbo"></script>
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}?v={{ time() }}">
 </head>
