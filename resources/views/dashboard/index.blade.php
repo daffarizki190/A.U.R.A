@@ -109,8 +109,8 @@
             
             <div style="display: flex; flex-direction: column; gap: 16px;">
                 @forelse($role_data['recent_activities'] as $activity)
-                    <a href="{{ route('findings.show', $activity->id) }}" style="text-decoration: none; display: flex; align-items: start; gap: 16px; padding: 16px; border-radius: var(--radius-m); background: rgba(255,255,255,0.02); border: 1px solid var(--border); transition: all 0.2s;">
-                        <div style="width: 36px; height: 36px; border-radius: 10px; background: rgba(255, 255, 255, 0.05); display: flex; align-items: center; justify-content: center; color: var(--text-secondary); flex-shrink: 0;">
+                    <a href="{{ route('findings.show', $activity->id) }}" style="text-decoration: none; display: flex; align-items: start; gap: 16px; padding: 16px; border-radius: var(--radius-m); background: rgba(0,0,0,0.02); border: 1px solid var(--border); transition: all 0.2s;">
+                        <div style="width: 36px; height: 36px; border-radius: 10px; background: rgba(0, 0, 0, 0.05); display: flex; align-items: center; justify-content: center; color: var(--text-secondary); flex-shrink: 0;">
                             <ion-icon name="{{ $activity->status == 'Done' ? 'checkmark-circle' : 'bulb' }}" style="font-size: 1.2rem;"></ion-icon>
                         </div>
                         <div>

@@ -21,7 +21,7 @@
     
     <div style="display: flex; gap: 12px;">
         @if($finding->status == 'Pending Approval' && (auth()->id() == $finding->pic_id || auth()->user()->role == 'CPM'))
-            <a href="{{ route('findings.edit', $finding->id) }}" class="btn-primary" style="background: rgba(255,255,255,0.05); color: var(--text-main); border: 1px solid var(--border);">
+            <a href="{{ route('findings.edit', $finding->id) }}" class="btn-primary" style="background: rgba(0,0,0,0.03); color: var(--text-main); border: 1px solid var(--border);">
                 <ion-icon name="create-outline" style="margin-right: 8px;"></ion-icon> Edit Laporan
             </a>
         @endif
@@ -69,7 +69,7 @@
 
             <div style="margin-top: 40px;">
                 <label style="display: block; font-size: 0.75rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase; margin-bottom: 12px;">Ringkasan Deskriptif</label>
-                <div style="padding: 24px; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 16px; line-height: 1.7; color: var(--text-secondary); font-size: 0.95rem;">
+                <div style="padding: 24px; background: rgba(0,0,0,0.02); border: 1px solid var(--border); border-radius: 16px; line-height: 1.7; color: var(--text-secondary); font-size: 0.95rem;">
                     {{ $finding->description }}
                 </div>
             </div>
@@ -77,7 +77,7 @@
             @if($finding->photo)
                 <div style="margin-top: 40px;">
                     <label style="display: block; font-size: 0.75rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase; margin-bottom: 16px;">Bukti Visual Lampiran</label>
-                    <div style="border-radius: 20px; overflow: hidden; border: 1px solid var(--border); background: black;">
+                    <div style="border-radius: 20px; overflow: hidden; border: 1px solid var(--border); background: var(--bg-main);">
                         @php
                             $photoUrl = str_starts_with($finding->photo, 'http')
                                 ? $finding->photo
@@ -166,11 +166,11 @@
                     @csrf
                     @method('PATCH')
                     <div style="display: flex; flex-direction: column; gap: 12px;">
-                        <select name="status" style="width: 100%; padding: 14px 16px; background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: 12px; color: var(--text-main); font-weight: 600; outline: none; appearance: none; cursor: pointer;">
-                            <option value="Pending Approval" {{ $finding->status == 'Pending Approval' ? 'selected' : '' }} style="background: #1a1a1a; color: white;">Pending Approval</option>
-                            <option value="Open" {{ $finding->status == 'Open' ? 'selected' : '' }} style="background: #1a1a1a; color: white;">Open</option>
-                            <option value="On Progress" {{ $finding->status == 'On Progress' ? 'selected' : '' }} style="background: #1a1a1a; color: white;">On Progress</option>
-                            <option value="Done" {{ $finding->status == 'Done' ? 'selected' : '' }} style="background: #1a1a1a; color: white;">Done</option>
+                        <select name="status" class="input" style="font-weight: 600; cursor: pointer;">
+                            <option value="Pending Approval" {{ $finding->status == 'Pending Approval' ? 'selected' : '' }}>Pending Approval</option>
+                            <option value="Open" {{ $finding->status == 'Open' ? 'selected' : '' }}>Open</option>
+                            <option value="On Progress" {{ $finding->status == 'On Progress' ? 'selected' : '' }}>On Progress</option>
+                            <option value="Done" {{ $finding->status == 'Done' ? 'selected' : '' }}>Done</option>
                         </select>
                         <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 14px; border-radius: 12px;">
                             <ion-icon name="save-outline" style="margin-right: 8px; font-size: 1.1rem;"></ion-icon>
