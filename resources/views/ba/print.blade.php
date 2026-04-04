@@ -182,15 +182,15 @@
 
         <div class="signatures">
             <div class="signature-box">
-                <div>Dibuat / Dilaporkan Oleh:</div>
-                <div class="signature-name">{{ $ba->pic ? $ba->pic->name : '_________________' }}</div>
-                <div>(Jabatan: {{ $ba->pic ? $ba->pic->role : 'PIC' }})</div>
+                <div>Dibuat Oleh:</div>
+                <div class="signature-name">{{ $ba->pic ? $ba->pic->name : 'Nama' }}</div>
+                <div>{{ $ba->pic ? $ba->pic->role : 'jabatan' }}</div>
             </div>
 
             <div class="signature-box">
-                <div>Mengetahui / Menyetujui:</div>
-                <div class="signature-name">Manajemen CPM</div>
-                <div>GANDARIA CITY</div>
+                <div>yang mengetahui:</div>
+                <div class="signature-name">Rizal Maulana</div>
+                <div>CPM</div>
             </div>
         </div>
 
