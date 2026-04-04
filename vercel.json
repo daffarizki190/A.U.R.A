@@ -20,10 +20,23 @@
         }
     ],
     "env": {
+        "APP_NAME": "A.U.R.A",
         "APP_ENV": "production",
         "APP_DEBUG": "false",
+        "APP_KEY": "base64:7vL9B6X1C4P2M6N5V4B3D2X1S0A9D8F7G6H5J4K3L2M=",
+        "APP_URL": "https://a-u-r-a.vercel.app",
         "LOG_CHANNEL": "stderr",
+        "DB_CONNECTION": "pgsql",
+        "DB_HOST": "3.109.171.244",
+        "DB_PORT": "6543",
+        "DB_DATABASE": "postgres",
+        "DB_USERNAME": "postgres.wzamfrmfowimudzeqerz",
+        "DB_PASSWORD": "GandariaOutstanding_2026!",
         "SESSION_DRIVER": "cookie",
-        "CACHE_STORE": "database"
+        "SESSION_LIFETIME": "120",
+        "CACHE_STORE": "database",
+        "FILESYSTEM_DISK": "local",
+        "QUEUE_CONNECTION": "database",
+        "BCRYPT_ROUNDS": "12"
     }
 }
