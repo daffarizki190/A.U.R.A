@@ -41,7 +41,7 @@
         
         <div class="stat-card glass-card gradient-card-primary">
             <div class="stat-header">
-                <div class="stat-label">Menunggu Acc</div>
+                <div class="stat-label">Menunggu Persetujuan</div>
                 <ion-icon name="time" style="color: var(--primary); font-size: 1.5rem;"></ion-icon>
             </div>
             <div class="stat-value">{{ $stats['findings_pending'] }}</div>
@@ -74,7 +74,7 @@
                         <thead>
                             <tr>
                                 <th>ID Laporan</th>
-                                <th>Lokasi / Aset</th>
+                                <th>Lokasi atau Aset</th>
                                 <th>Pelapor</th>
                                 <th>Aksi</th>
                             </tr>
@@ -127,7 +127,7 @@
     </div>
 
 @else
-    <!-- ===================== SPV / PIC LAYOUT ===================== -->
+    <!-- ===================== PEMILIK ATAU PIC LAYOUT ===================== -->
     <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
         <div class="stat-card glass-card gradient-card-primary">
             <div class="stat-header">
@@ -135,16 +135,16 @@
                 <ion-icon name="construct" style="color: var(--primary); font-size: 1.5rem;"></ion-icon>
             </div>
             <div class="stat-value">{{ count($role_data['my_active_tasks']) }}</div>
-            <div style="margin-top: 8px; font-size: 0.75rem; color: var(--primary); font-weight: 600;">Dalam status Open/On Progress</div>
+            <div style="margin-top: 8px; font-size: 0.75rem; color: var(--primary); font-weight: 600;">Tahap pengerjaan atau terbuka</div>
         </div>
         
         <div class="stat-card glass-card">
             <div class="stat-header">
-                <div class="stat-label">Laporan Belum Di-ACC</div>
+                <div class="stat-label">Menunggu Persetujuan</div>
                 <ion-icon name="time" style="color: var(--warning); font-size: 1.5rem;"></ion-icon>
             </div>
             <div class="stat-value">{{ count($role_data['my_submissions']) }}</div>
-            <div style="margin-top: 8px; font-size: 0.75rem; color: var(--text-dim); font-weight: 500;">Menunggu persetujuan CPM</div>
+            <div style="margin-top: 8px; font-size: 0.75rem; color: var(--text-dim); font-weight: 500;">Menunggu persetujuan manajerial</div>
         </div>
     </div>
 
@@ -184,7 +184,7 @@
             <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px;">
                 <div>
                     <h3 style="font-size: 1.2rem; font-weight: 700; color: var(--text-main); margin-bottom: 4px;">Status Laporan Saya</h3>
-                    <div style="font-size: 0.8rem; color: var(--text-dim);">Temuan yang Anda laporkan dan menunggu ACC.</div>
+                    <div style="font-size: 0.8rem; color: var(--text-dim);">Temuan yang Anda laporkan dan menunggu persetujuan.</div>
                 </div>
             </div>
 
