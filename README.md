@@ -19,7 +19,7 @@
 ## 👥 Aktor & Hak Akses (Roles)
 
 Sistem ini memfasilitasi 3 jenis profil pengguna utama:
-1. **CPM (Pusat Manajemen / ex: Rizal)** - Pemegang otoritas tertinggi tingkat Manajemen. Sehari-hari hanya peran ini yang memiliki instrumen rahasia untuk melakukan persetujuan akhir (*Approve*) terhadap Berita Acara maupun penyelesaian Temuan Aset.
+1. **CPM (Pusat Manajemen / ex: Rizal Maulana)** - Pemegang otoritas tertinggi tingkat Manajemen. Sehari-hari hanya peran ini yang memiliki instrumen rahasia untuk melakukan persetujuan akhir (*Approve*) terhadap Berita Acara maupun penyelesaian Temuan Aset.
 2. **SPV (Supervisor / ex: Yamin, Akmal)** - Pengawas operasional harian yang memiliki hak dasar untuk membuat, memantau, dan melaporkan Berita Acara kejadian dari lapangan.
 3. **IT (Tim Teknis / ex: Irvandi)** - Penanggungjawab jaringan/teknologi yang dapat memantau dan memperbarui progres tiket perbaikan dari segi piranti keras (Hardware/Aset IT).
 
@@ -49,7 +49,7 @@ A.U.R.A/
 │   └── Models/                # Pemetaan/Penghubung Database (BeritaAcara.php, AssetFinding.php, User.php)
 ├── database/
 │   ├── migrations/            # Histori Arsitektur Tabel (Supabase PostgreSQL)
-│   └── seeders/               # Komando Pengisi Rekayasa Tabel (Akun Pak Rizal CPM, Pak Yamin SPV)
+│   └── seeders/               # Komando Pengisi Rekayasa Tabel (Akun Pak Rizal Maulana CPM, Pak Akhmad Nuryamin SPV)
 ├── public/
 │   ├── css/
 │   │   └── app.css            # 🎨 (PENTING) Pusat desain sistem (Warna Gelap, Radius Tombol, CSS Grid)

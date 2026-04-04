@@ -15,8 +15,14 @@ return new class extends Migration
             'users',
             'berita_acaras',
             'asset_findings',
+            'activity_logs',
             'password_reset_tokens',
             'sessions',
+            'cache',
+            'cache_locks',
+            'jobs',
+            'job_batches',
+            'failed_jobs',
             'migrations'
         ];
 
@@ -36,8 +42,14 @@ return new class extends Migration
             'users',
             'berita_acaras',
             'asset_findings',
+            'activity_logs',
             'password_reset_tokens',
             'sessions',
+            'cache',
+            'cache_locks',
+            'jobs',
+            'job_batches',
+            'failed_jobs',
             'migrations'
         ];
 
