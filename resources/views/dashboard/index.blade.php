@@ -169,11 +169,8 @@
                             </div>
                             <div style="display: flex; flex-direction: column; align-items: flex-end;">
                                 <span class="badge badge-{{ strtolower(str_replace(' ', '', $task->status)) }}">{{ $task->status }}</span>
-                                <div style="margin-top: 8px; font-size: 0.7rem; color: var(--text-dim); text-align: right;">
-                                    <div>Tgl Temuan: {{ \Carbon\Carbon::parse($task->finding_date)->format('d M Y') }}</div>
-                                    @if($task->estimated_completion_date)
-                                        <div style="color: var(--primary); font-weight: 500; margin-top: 2px;">Target: {{ \Carbon\Carbon::parse($task->estimated_completion_date)->format('d M Y') }}</div>
-                                    @endif
+                                <div style="margin-top: 8px; font-size: 0.75rem; color: var(--text-dim); text-align: right; font-weight: 500;">
+                                    {{ \Carbon\Carbon::parse($task->created_at)->format('d M Y') }}
                                 </div>
                             </div>
                         </a>
