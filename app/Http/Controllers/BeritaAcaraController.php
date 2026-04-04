@@ -55,7 +55,7 @@ class BeritaAcaraController extends Controller
         $data = $request->except('attachment');
 
         if ($request->hasFile('attachment')) {
-            $data['attachment'] = $request->file('attachment')->store('ba_attachments', 'public');
+            $data['attachment'] = $request->file('attachment')->store('ba_attachments', 's3');
         }
 
         BeritaAcara::create(array_merge($data, [
@@ -121,7 +121,7 @@ class BeritaAcaraController extends Controller
         $data = $request->except('attachment');
 
         if ($request->hasFile('attachment')) {
-            $data['attachment'] = $request->file('attachment')->store('ba_attachments', 'public');
+            $data['attachment'] = $request->file('attachment')->store('ba_attachments', 's3');
         }
 
         $ba->update($data);

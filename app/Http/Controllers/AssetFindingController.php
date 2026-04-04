@@ -54,7 +54,7 @@ class AssetFindingController extends Controller
 
         $data = $request->all();
         if ($request->hasFile('photo')) {
-            $data['photo'] = $request->file('photo')->store('findings', 'public');
+            $data['photo'] = $request->file('photo')->store('findings', 's3');
         }
 
         AssetFinding::create(array_merge($data, [
@@ -119,7 +119,7 @@ class AssetFindingController extends Controller
 
         $data = $request->all();
         if ($request->hasFile('photo')) {
-            $data['photo'] = $request->file('photo')->store('findings', 'public');
+            $data['photo'] = $request->file('photo')->store('findings', 's3');
         }
 
         $finding->update($data);

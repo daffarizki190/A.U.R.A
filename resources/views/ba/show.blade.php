@@ -67,7 +67,12 @@
                 @if($ba->attachment)
                 <div style="grid-column: span 2; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.05);">
                     <label style="display: block; font-size: 0.75rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase; margin-bottom: 12px;">Dokumen Lampiran</label>
-                    <a href="{{ Storage::url($ba->attachment) }}" target="_blank" class="btn-primary" style="background: rgba(255,255,255,0.05); color: var(--text-main); border: 1px solid var(--border); width: fit-content;">
+                    @php
+                        $attachmentUrl = str_starts_with($ba->attachment, 'http') 
+                            ? $ba->attachment 
+                            : Storage::disk('s3')->url($ba->attachment);
+                    @endphp
+                    <a href="{{ $attachmentUrl }}" target="_blank" class="btn-primary" style="background: rgba(255,255,255,0.05); color: var(--text-main); border: 1px solid var(--border); width: fit-content;">
                         <ion-icon name="document-attach-outline" style="margin-right: 8px; font-size: 1.2rem;"></ion-icon>
                         Unduh atau Lihat Lampiran
                      </a>

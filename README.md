@@ -20,7 +20,7 @@
 
 Sistem ini memfasilitasi 3 jenis profil pengguna utama:
 1. **CPM (Pusat Manajemen / ex: Rizal)** - Pemegang otoritas tertinggi tingkat Manajemen. Sehari-hari hanya peran ini yang memiliki instrumen rahasia untuk melakukan persetujuan akhir (*Approve*) terhadap Berita Acara maupun penyelesaian Temuan Aset.
-2. **SPV (Supervisor / ex: Yamin, Akmal)** - Pengawas keliling operasional harian yang memiliki hak dasar untuk membuat, memantau, dan melaporkan Berita Acara kejadian dari lapangan.
+2. **SPV (Supervisor / ex: Yamin, Akmal)** - Pengawas operasional harian yang memiliki hak dasar untuk membuat, memantau, dan melaporkan Berita Acara kejadian dari lapangan.
 3. **IT (Tim Teknis / ex: Irvandi)** - Penanggungjawab jaringan/teknologi yang dapat memantau dan memperbarui progres tiket perbaikan dari segi piranti keras (Hardware/Aset IT).
 
 ---
@@ -80,4 +80,4 @@ Bagi pengembang penerus yang diutus untuk mengambil alih lingkungan uji coba lok
 6. Login menggunakan `cpm@gandariacity.com` (Sandi: `password123`).
 
 ---
-*(Didokumentasikan oleh Tim Pengembangan Infrastruktur Gandaria City - © 2026)*
+*(Didokumentasikan oleh Tim Pengembangan Infrastruktur CentralPark Gandaria City - © 2026)*
