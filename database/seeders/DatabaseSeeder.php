@@ -18,28 +18,28 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         User::create([
-            'name' => 'Yamin',
+            'name' => 'Akhmad Nuryamin',
             'email' => 'spv1@gandariacity.com',
             'password' => bcrypt('password123'),
             'role' => 'SPV',
         ]);
 
         User::create([
-            'name' => 'Akmal',
+            'name' => 'Muhammad Akmal Feruzi',
             'email' => 'spv2@gandariacity.com',
             'password' => bcrypt('password123'),
             'role' => 'SPV',
         ]);
 
         User::create([
-            'name' => 'Rizal',
+            'name' => 'Rizal Maulana',
             'email' => 'cpm@gandariacity.com',
             'password' => bcrypt('password123'),
             'role' => 'CPM',
         ]);
 
         User::create([
-            'name' => 'Irvandi',
+            'name' => 'Irvandi Maulana',
             'email' => 'it@gandariacity.com',
             'password' => bcrypt('password123'),
             'role' => 'IT',
