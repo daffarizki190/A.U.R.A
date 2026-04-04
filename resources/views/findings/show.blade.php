@@ -79,9 +79,9 @@
                     <label style="display: block; font-size: 0.75rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase; margin-bottom: 16px;">Bukti Visual Lampiran</label>
                     <div style="border-radius: 20px; overflow: hidden; border: 1px solid var(--border); background: black;">
                         @php
-                            $photoUrl = str_starts_with($finding->photo, 'http') 
-                                ? $finding->photo 
-                                : Storage::disk('s3')->url($finding->photo);
+                            $photoUrl = str_starts_with($finding->photo, 'http')
+                                ? $finding->photo
+                                : asset('storage/' . $finding->photo);
                         @endphp
                         <img src="{{ $photoUrl }}" style="width: 100%; display: block; filter: brightness(0.9); transition: filter 0.3s;" onmouseover="this.style.filter='brightness(1)'" onmouseout="this.style.filter='brightness(0.9)'" alt="Foto Temuan">
                     </div>
