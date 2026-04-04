@@ -41,7 +41,7 @@
         
         <div class="stat-card glass-card gradient-card-primary">
             <div class="stat-header">
-                <div class="stat-label">Menunggu Persetujuan</div>
+                <div class="stat-label">Waiting Approved</div>
                 <ion-icon name="time" style="color: var(--primary); font-size: 1.5rem;"></ion-icon>
             </div>
             <div class="stat-value">{{ $stats['findings_pending'] }}</div>
@@ -135,12 +135,12 @@
                 <ion-icon name="construct" style="color: var(--primary); font-size: 1.5rem;"></ion-icon>
             </div>
             <div class="stat-value">{{ count($role_data['my_active_tasks']) }}</div>
-            <div style="margin-top: 8px; font-size: 0.75rem; color: var(--primary); font-weight: 600;">Tahap pengerjaan atau terbuka</div>
+            <div style="margin-top: 8px; font-size: 0.75rem; color: var(--primary); font-weight: 600;">DONE atau ON PROGRES</div>
         </div>
         
         <div class="stat-card glass-card">
             <div class="stat-header">
-                <div class="stat-label">Menunggu Persetujuan</div>
+                <div class="stat-label">Waiting Approved</div>
                 <ion-icon name="time" style="color: var(--warning); font-size: 1.5rem;"></ion-icon>
             </div>
             <div class="stat-value">{{ count($role_data['my_submissions']) }}</div>
