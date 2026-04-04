@@ -130,87 +130,142 @@
 
 @else
     <!-- ===================== PEMILIK ATAU PIC LAYOUT ===================== -->
-    <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+    <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
         <div class="stat-card glass-card gradient-card-primary">
             <div class="stat-header">
-                <div class="stat-label">Tugas Aktif SAYA</div>
+                <div class="stat-label">Laporan Aktif</div>
                 <ion-icon name="construct" style="color: var(--primary); font-size: 1.5rem;"></ion-icon>
             </div>
-            <div class="stat-value">{{ count($role_data['my_active_tasks']) }}</div>
-            <div style="margin-top: 8px; font-size: 0.75rem; color: var(--primary); font-weight: 600;">DONE atau ON PROGRES</div>
+            <div class="stat-value">{{ count($role_data['active_findings']) + count($role_data['active_ba']) }}</div>
+            <div style="margin-top: 8px; font-size: 0.75rem; color: var(--primary); font-weight: 600;">Selesaikan tugas ini segera</div>
         </div>
         
         <div class="stat-card glass-card">
             <div class="stat-header">
-                <div class="stat-label">Waiting Approved</div>
+                <div class="stat-label">Menunggu Persetujuan</div>
                 <ion-icon name="time" style="color: var(--warning); font-size: 1.5rem;"></ion-icon>
             </div>
-            <div class="stat-value">{{ count($role_data['my_submissions']) }}</div>
-            <div style="margin-top: 8px; font-size: 0.75rem; color: var(--text-dim); font-weight: 500;">Menunggu persetujuan manajerial</div>
+            <div class="stat-value">{{ count($role_data['waiting_findings']) }}</div>
+            <div style="margin-top: 8px; font-size: 0.75rem; color: var(--text-dim); font-weight: 500;">Menunggu validasi manajemen CPM</div>
+        </div>
+
+        <div class="stat-card glass-card">
+            <div class="stat-header">
+                <div class="stat-label">Laporan Selesai</div>
+                <ion-icon name="checkmark-done" style="color: var(--success); font-size: 1.5rem;"></ion-icon>
+            </div>
+            <div class="stat-value">{{ count($role_data['completed_findings']) + count($role_data['completed_ba']) }}</div>
+            <div style="margin-top: 8px; font-size: 0.75rem; color: var(--success); font-weight: 600;">Record 5 laporan terakhir</div>
         </div>
     </div>
 
     <div class="dashboard-grid spv-layout">
+        <!-- LEFT: ACTIVE REPORTS -->
         <div class="glass-card" style="padding: 32px;">
             <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px;">
                 <div>
-                    <h3 style="font-size: 1.2rem; font-weight: 700; color: var(--text-main); margin-bottom: 4px;">Pekerjaan Saya</h3>
-                    <div style="font-size: 0.8rem; color: var(--text-dim);">Daftar kendala yang harus Anda eksekusi.</div>
+                    <h3 style="font-size: 1.2rem; font-weight: 700; color: var(--text-main); margin-bottom: 4px;">Pekerjaan Aktif SAYA</h3>
+                    <div style="font-size: 0.8rem; color: var(--text-dim);">Daftar laporan Temuan & Berita Acara yang sedang berjalan.</div>
                 </div>
             </div>
 
-            @if(count($role_data['my_active_tasks']) > 0)
-                <div style="display: flex; flex-direction: column;">
-                    @foreach($role_data['my_active_tasks'] as $task)
-                        <a href="{{ route('findings.show', $task->id) }}" style="text-decoration: none;" class="task-card">
-                            <div>
-                                <div class="task-card-title">{{ $task->finding_code }} - {{ $task->asset_type }}</div>
-                                <div class="task-card-subtitle"><ion-icon name="location-outline" style="vertical-align: middle;"></ion-icon> {{ $task->location }}</div>
+            @php 
+                $has_active = count($role_data['active_findings']) > 0 || count($role_data['active_ba']) > 0 || count($role_data['waiting_findings']) > 0;
+            @endphp
+
+            @if($has_active)
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    {{-- Active Findings --}}
+                    @foreach($role_data['active_findings'] as $task)
+                        <div class="task-card" style="border-left: 4px solid var(--primary);">
+                            <div style="flex: 1;">
+                                <div class="task-card-title">{{ $task->finding_code }} <small style="color: var(--text-dim);">[TEMUAN]</small></div>
+                                <div class="task-card-subtitle">{{ $task->asset_type }} • {{ $task->location }}</div>
                             </div>
-                            <div style="display: flex; flex-direction: column; align-items: flex-end;">
-                                <span class="badge badge-{{ strtolower(str_replace(' ', '', $task->status)) }}">{{ $task->status }}</span>
-                                <div style="margin-top: 8px; font-size: 0.75rem; color: var(--text-dim); text-align: right; font-weight: 500;">
-                                    {{ \Carbon\Carbon::parse($task->created_at)->format('d M Y') }}
-                                </div>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <span class="badge badge-onprogres">ON PROGRES</span>
+                                <a href="{{ route('findings.show', $task->id) }}" class="btn-primary" style="padding: 6px 12px; font-size: 0.75rem;">Buka</a>
                             </div>
-                        </a>
+                        </div>
                     @endforeach
-                </div>
-            @else
-                <div class="empty-state">
-                    <ion-icon name="cafe-outline" style="font-size: 3rem; color: var(--text-dim); margin-bottom: 12px;"></ion-icon>
-                    <div>Tidak ada tugas aktif di antrean Anda.</div>
-                </div>
-            @endif
-        </div>
 
-        <div class="glass-card" style="padding: 32px;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px;">
-                <div>
-                    <h3 style="font-size: 1.2rem; font-weight: 700; color: var(--text-main); margin-bottom: 4px;">Status Laporan Saya</h3>
-                    <div style="font-size: 0.8rem; color: var(--text-dim);">Temuan yang Anda laporkan dan menunggu persetujuan.</div>
-                </div>
-            </div>
-
-            @if(count($role_data['my_submissions']) > 0)
-                <div style="display: flex; flex-direction: column;">
-                    @foreach($role_data['my_submissions'] as $submission)
-                        <div class="task-card" style="cursor: default;">
-                            <div>
-                                <div class="task-card-title" style="font-size: 1rem;">{{ $submission->finding_code }}</div>
-                                <div class="task-card-subtitle">{{ $submission->asset_type }}</div>
+                    {{-- Active BA --}}
+                    @foreach($role_data['active_ba'] as $ba)
+                        <div class="task-card" style="border-left: 4px solid var(--warning);">
+                            <div style="flex: 1;">
+                                <div class="task-card-title">{{ $ba->ba_number }} <small style="color: var(--text-dim);">[BA]</small></div>
+                                <div class="task-card-subtitle">{{ $ba->ba_type }} • {{ $ba->customer_name }}</div>
                             </div>
-                            <div style="display: flex; flex-direction: column; align-items: flex-end;">
-                                <span class="badge badge-pendingapproval">Pending</span>
-                                <a href="{{ route('findings.show', $submission->id) }}" style="margin-top: 8px; font-size: 0.75rem; color: var(--primary); font-weight: 600; text-decoration: none;">Lihat Detail &rarr;</a>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <span class="badge badge-processing">DI PROSES</span>
+                                <a href="{{ route('ba.show', $ba->id) }}" class="btn-primary" style="padding: 6px 12px; font-size: 0.75rem; background: var(--text-main);">Buka</a>
+                            </div>
+                        </div>
+                    @endforeach
+
+                    {{-- Waiting Findings --}}
+                    @foreach($role_data['waiting_findings'] as $waiting)
+                        <div class="task-card" style="background: rgba(0,0,0,0.01); border-style: dashed;">
+                            <div style="flex: 1;">
+                                <div class="task-card-title">{{ $waiting->finding_code }}</div>
+                                <div class="task-card-subtitle">Menunggu Persetujuan CPM</div>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <span class="badge badge-pendingapproval">WAITING</span>
+                                <a href="{{ route('findings.show', $waiting->id) }}" class="btn-primary" style="padding: 6px 12px; font-size: 0.75rem; background: var(--border); color: var(--text-main);">Detail</a>
                             </div>
                         </div>
                     @endforeach
                 </div>
             @else
                 <div class="empty-state">
-                    <ion-icon name="checkmark-done-outline" style="font-size: 3rem; color: var(--success); margin-bottom: 12px;"></ion-icon>
-                    <div>Semua laporan Anda telah diproses oleh CPM.</div>
+                    <ion-icon name="checkmark-circle-outline" style="font-size: 3rem; color: var(--success); margin-bottom: 12px;"></ion-icon>
+                    <div>Semua tugas Anda telah bersih.</div>
+                </div>
+            @endif
+        </div>
+
+        <!-- RIGHT: COMPLETED HISTORY -->
+        <div class="glass-card" style="padding: 32px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px;">
+                <div>
+                    <h3 style="font-size: 1.2rem; font-weight: 700; color: var(--text-main); margin-bottom: 4px;">Riwayat Laporan Selesai</h3>
+                    <div style="font-size: 0.8rem; color: var(--text-dim);">Laporan terakhir yang telah dituntaskan.</div>
+                </div>
+            </div>
+
+            @php 
+                $has_completed = count($role_data['completed_findings']) > 0 || count($role_data['completed_ba']) > 0;
+            @endphp
+
+            @if($has_completed)
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    {{-- Completed Findings --}}
+                    @foreach($role_data['completed_findings'] as $done)
+                        <div class="task-card" style="padding: 12px 16px; opacity: 0.8;">
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; font-size: 0.85rem;">{{ $done->finding_code }}</div>
+                                <div style="font-size: 0.7rem; color: var(--text-dim);">Selesai pada {{ \Carbon\Carbon::parse($done->updated_at)->format('d/m/Y') }}</div>
+                            </div>
+                            <a href="{{ route('findings.show', $done->id) }}" style="color: var(--primary); font-size: 1.1rem;"><ion-icon name="arrow-forward-circle"></ion-icon></a>
+                        </div>
+                    @endforeach
+
+                    {{-- Completed BA --}}
+                    @foreach($role_data['completed_ba'] as $ba_done)
+                        <div class="task-card" style="padding: 12px 16px; opacity: 0.8;">
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; font-size: 0.85rem;">{{ $ba_done->ba_number }}</div>
+                                <div style="font-size: 0.7rem; color: var(--text-dim);">Berita Acara {{ $ba_done->status }}</div>
+                            </div>
+                            <a href="{{ route('ba.show', $ba_done->id) }}" style="color: var(--primary); font-size: 1.1rem;"><ion-icon name="arrow-forward-circle"></ion-icon></a>
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <div class="empty-state" style="padding: 24px;">
+                    <ion-icon name="document-text-outline" style="font-size: 2rem; color: var(--border); margin-bottom: 8px;"></ion-icon>
+                    <div style="font-size: 0.75rem;">Belum ada riwayat laporan selesai.</div>
                 </div>
             @endif
         </div>

@@ -25,6 +25,9 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
         Route::middleware('role:CPM')->group(function () {
             Route::post('findings/{finding}/approve', [AssetFindingController::class, 'approve'])->name('findings.approve');
             Route::post('findings/{finding}/cancel-approve', [AssetFindingController::class, 'cancelApprove'])->name('findings.cancelApprove');
+            
+            // Audit Trail
+            Route::get('admin/logs', [DashboardController::class, 'activityLogs'])->name('admin.logs');
         });
 
         // Berita Acara — semua user bisa CRUD

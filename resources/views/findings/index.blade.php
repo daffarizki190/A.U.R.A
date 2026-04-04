@@ -22,8 +22,8 @@
                 <option value="">Semua Status</option>
                 <option value="Pending Approval" {{ request('status') == 'Pending Approval' ? 'selected' : '' }}>Waiting Approved</option>
                 <option value="Open" {{ request('status') == 'Open' ? 'selected' : '' }}>Open</option>
-                <option value="On Progress" {{ request('status') == 'On Progress' ? 'selected' : '' }}>On Progress</option>
-                <option value="Done" {{ request('status') == 'Done' ? 'selected' : '' }}>Done</option>
+                <option value="On Progress" {{ request('status') == 'On Progress' ? 'selected' : '' }}>ON PROGRES</option>
+                <option value="Done" {{ request('status') == 'Done' ? 'selected' : '' }}>DONE</option>
             </select>
         </div>
         <div style="flex: 2;">
@@ -70,7 +70,7 @@
                     </td>
                     <td>
                         <span class="badge badge-{{ strtolower(str_replace(' ', '', $finding->status)) }}">
-                            {{ $finding->status }}
+                            {{ str_replace('On Progress', 'ON PROGRES', str_replace('Done', 'DONE', $finding->status)) }}
                         </span>
                     </td>
                     <td style="text-align: right;">

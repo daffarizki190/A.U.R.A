@@ -67,18 +67,18 @@
             <textarea name="chronology" class="input" style="height: 200px; padding: 20px; line-height: 1.6; resize: vertical;" placeholder="Berikan penjelasan secara rinci mengenai berjalannya kejadian dari awal hingga akhir..." required></textarea>
         </div>
         
-        <div style="padding: 16px; background: rgba(0, 122, 255, 0.05); border: 1px solid rgba(0, 122, 255, 0.1); border-radius: 12px; margin-bottom: 32px; display: flex; align-items: flex-start; gap: 12px;">
-            <ion-icon name="shield-checkmark" style="color: var(--primary); font-size: 1.25rem; margin-top: 2px;"></ion-icon>
+        <div style="padding: 16px; background: rgba(52, 199, 89, 0.05); border: 1px solid rgba(52, 199, 89, 0.1); border-radius: 12px; margin-bottom: 32px; display: flex; align-items: flex-start; gap: 12px;">
+            <ion-icon name="shield-checkmark" style="color: var(--success); font-size: 1.25rem; margin-top: 2px;"></ion-icon>
             <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">
-                <strong style="color: var(--text-main);">Pencatatan Penanggung Jawab:</strong><br>
-                Penanggung jawab utama dari dokumen ini akan dicatat dalam nama: <span style="color: var(--primary); font-weight: 600;">{{ auth()->user()->name }}</span>
+                <strong style="color: var(--text-main);">Verifikasi Identitas Pelapor:</strong><br>
+                Dokumen ini akan diterbitkan secara resmi oleh Anda (<span style="color: var(--primary); font-weight: 600;">{{ auth()->user()->name }}</span>) dengan jabatan saat ini sebagai <span style="font-weight: 700;">{{ auth()->user()->role }}</span>.
             </div>
         </div>
         
         <div style="display: flex; gap: 16px;">
-            <button type="submit" class="btn-primary" style="flex: 2; height: 52px; font-size: 1rem;">
+            <button type="submit" class="btn-primary" style="flex: 2; height: 52px; font-size: 1rem; background: var(--text-main); box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
                 <ion-icon name="document-text-outline" style="margin-right: 8px;"></ion-icon>
-                Ajukan Dokumen
+                Ajukan Berita Acara Resmi
             </button>
             <a href="{{ route('ba.index') }}" class="btn-primary" style="flex: 1; height: 52px; background: rgba(0,0,0,0.03); color: var(--text-main); border: 1px solid var(--border);">
                 Batal
