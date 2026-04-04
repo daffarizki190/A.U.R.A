@@ -95,7 +95,7 @@
         @if(auth()->user()->role == 'CPM')
             @if($finding->status == 'Pending Approval')
                 <div class="glass-card" style="padding: 32px; border: 1px solid rgba(52, 199, 89, 0.3); background: linear-gradient(135deg, rgba(52, 199, 89, 0.05) 0%, transparent 100%); border-radius: 24px;">
-                    <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--success); margin-bottom: 12px;">Menunggu Persetujuan</h3>
+                    <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--success); margin-bottom: 12px;">Waiting Approved</h3>
                     <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 24px; line-height: 1.6;">Tinjau detail laporan dan berikan otorisasi untuk memulai proses perbaikan aset ini.</p>
                     <form action="{{ route('findings.approve', $finding->id) }}" method="POST">
                         @csrf
@@ -167,10 +167,10 @@
                     @method('PATCH')
                     <div style="display: flex; flex-direction: column; gap: 12px;">
                         <select name="status" class="input" style="font-weight: 600; cursor: pointer;">
-                            <option value="Pending Approval" {{ $finding->status == 'Pending Approval' ? 'selected' : '' }}>Pending Approval</option>
+                            <option value="Pending Approval" {{ $finding->status == 'Pending Approval' ? 'selected' : '' }}>Waiting Approved</option>
                             <option value="Open" {{ $finding->status == 'Open' ? 'selected' : '' }}>Open</option>
-                            <option value="On Progress" {{ $finding->status == 'On Progress' ? 'selected' : '' }}>On Progress</option>
-                            <option value="Done" {{ $finding->status == 'Done' ? 'selected' : '' }}>Done</option>
+                            <option value="On Progress" {{ $finding->status == 'On Progress' ? 'selected' : '' }}>ON PROGRES</option>
+                            <option value="Done" {{ $finding->status == 'Done' ? 'selected' : '' }}>DONE</option>
                         </select>
                         <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 14px; border-radius: 12px;">
                             <ion-icon name="save-outline" style="margin-right: 8px; font-size: 1.1rem;"></ion-icon>

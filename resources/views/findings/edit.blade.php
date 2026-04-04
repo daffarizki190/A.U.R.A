@@ -22,10 +22,10 @@
             <div class="form-group">
                 <label>Status Operasional</label>
                 <select name="status" class="input">
-                    <option value="Pending Approval" {{ $finding->status == 'Pending Approval' ? 'selected' : '' }}>Menunggu Persetujuan</option>
-                    <option value="Open" {{ $finding->status == 'Open' ? 'selected' : '' }}>Open (Disetujui)</option>
-                    <option value="On Progress" {{ $finding->status == 'On Progress' ? 'selected' : '' }}>On Progress</option>
-                    <option value="Done" {{ $finding->status == 'Done' ? 'selected' : '' }}>Done (Selesai)</option>
+                    <option value="Pending Approval" {{ $finding->status == 'Pending Approval' ? 'selected' : '' }}>Waiting Approved</option>
+                    <option value="Open" {{ $finding->status == 'Open' ? 'selected' : '' }}>Open</option>
+                    <option value="On Progress" {{ $finding->status == 'On Progress' ? 'selected' : '' }}>ON PROGRES</option>
+                    <option value="Done" {{ $finding->status == 'Done' ? 'selected' : '' }}>DONE</option>
                 </select>
             </div>
             
@@ -35,7 +35,7 @@
                     <option value="">-- Pilih Penanggung Jawab --</option>
                     @foreach($users as $user)
                         <option value="{{ $user->id }}" {{ $finding->pic_id == $user->id ? 'selected' : '' }}>
-                            {{ $user->name }} ({{ $user->role }})
+                            {{ $user->name }} (Jabatan: {{ $user->role }})
                         </option>
                     @endforeach
                 </select>

@@ -184,7 +184,7 @@
             <div class="signature-box">
                 <div>Dibuat / Dilaporkan Oleh:</div>
                 <div class="signature-name">{{ $ba->pic ? $ba->pic->name : '_________________' }}</div>
-                <div>({{ $ba->pic ? $ba->pic->role : 'PIC' }})</div>
+                <div>(Jabatan: {{ $ba->pic ? $ba->pic->role : 'PIC' }})</div>
             </div>
 
             <div class="signature-box">

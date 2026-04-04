@@ -20,9 +20,9 @@
             <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase; margin-bottom: 8px; display: block;">Filter Status</label>
             <select name="status" class="input" style="height: 48px;">
                 <option value="">Semua Dokumen</option>
-                <option value="Submitted" {{ request('status') == 'Submitted' ? 'selected' : '' }}>Menunggu Persetujuan</option>
-                <option value="Processed" {{ request('status') == 'Processed' ? 'selected' : '' }}>Diproses (Terotorisasi)</option>
-                <option value="Done" {{ request('status') == 'Done' ? 'selected' : '' }}>Selesai (Diarsipkan)</option>
+                <option value="Submitted" {{ request('status') == 'Submitted' ? 'selected' : '' }}>Waiting Approved</option>
+                <option value="Processed" {{ request('status') == 'Processed' ? 'selected' : '' }}>ON PROGRES</option>
+                <option value="Done" {{ request('status') == 'Done' ? 'selected' : '' }}>DONE</option>
                 <option value="Rejected" {{ request('status') == 'Rejected' ? 'selected' : '' }}>Ditolak</option>
             </select>
         </div>

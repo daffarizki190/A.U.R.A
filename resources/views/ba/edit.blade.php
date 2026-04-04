@@ -22,9 +22,9 @@
             <div class="form-group">
                 <label>Status Alur Kerja</label>
                 <select name="status" class="input">
-                    <option value="Submitted" {{ $ba->status == 'Submitted' ? 'selected' : '' }}>Menunggu Persetujuan</option>
-                    <option value="Processed" {{ $ba->status == 'Processed' ? 'selected' : '' }}>Diproses (Terotorisasi)</option>
-                    <option value="Done" {{ $ba->status == 'Done' ? 'selected' : '' }}>Selesai (Diarsipkan)</option>
+                    <option value="Submitted" {{ $ba->status == 'Submitted' ? 'selected' : '' }}>Waiting Approved</option>
+                    <option value="Processed" {{ $ba->status == 'Processed' ? 'selected' : '' }}>ON PROGRES</option>
+                    <option value="Done" {{ $ba->status == 'Done' ? 'selected' : '' }}>DONE</option>
                     <option value="Rejected" {{ $ba->status == 'Rejected' ? 'selected' : '' }}>Ditolak</option>
                 </select>
             </div>
@@ -35,7 +35,7 @@
                     <option value="">-- Pilih Penanggung Jawab --</option>
                     @foreach($users as $user)
                         <option value="{{ $user->id }}" {{ $ba->pic_id == $user->id ? 'selected' : '' }}>
-                            {{ $user->name }} ({{ $user->role }})
+                            {{ $user->name }} (Jabatan: {{ $user->role }})
                         </option>
                     @endforeach
                 </select>

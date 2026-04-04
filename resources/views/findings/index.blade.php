@@ -20,7 +20,7 @@
             <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase; margin-bottom: 8px; display: block;">Filter Status</label>
             <select name="status" class="input" style="height: 48px;">
                 <option value="">Semua Status</option>
-                <option value="Pending Approval" {{ request('status') == 'Pending Approval' ? 'selected' : '' }}>Menunggu Persetujuan</option>
+                <option value="Pending Approval" {{ request('status') == 'Pending Approval' ? 'selected' : '' }}>Waiting Approved</option>
                 <option value="Open" {{ request('status') == 'Open' ? 'selected' : '' }}>Open</option>
                 <option value="On Progress" {{ request('status') == 'On Progress' ? 'selected' : '' }}>On Progress</option>
                 <option value="Done" {{ request('status') == 'Done' ? 'selected' : '' }}>Done</option>

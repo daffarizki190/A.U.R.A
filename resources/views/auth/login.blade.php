@@ -8,15 +8,15 @@
                 <ion-icon name="shield-checkmark" style="font-size: 32px; color: white;"></ion-icon>
             </div>
             <h1 style="font-size: 1.75rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px;">A.U.R.A</h1>
-            <p style="color: var(--text-dim); font-size: 0.9rem;">Asset Update & Report Application</p>
+            <p style="color: var(--text-dim); font-size: 0.9rem;">Sistem Pemantauan & Pelaporan Aset Terpadu</p>
         </div>
         
         <form action="{{ route('login') }}" method="POST">
             @csrf
             
             <div class="form-group" style="margin-bottom: 24px;">
-                <label for="email">Username / Email</label>
-                <input type="email" id="email" name="email" class="input" value="{{ old('email') }}" placeholder="name@gandariacity.com" required autofocus>
+                <label for="email">Alamat Email / Username</label>
+                <input type="email" id="email" name="email" class="input" value="{{ old('email') }}" placeholder="nama@gandariacity.com" required autofocus>
                 @error('email')
                     <div style="color: var(--danger); font-size: 0.8rem; margin-top: 6px; font-weight: 500;">{{ $message }}</div>
                 @enderror
@@ -24,13 +24,13 @@
             
             <div class="form-group" style="margin-bottom: 32px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                    <label for="password" style="margin-bottom: 0;">Password</label>
+                    <label for="password" style="margin-bottom: 0;">Kata Sandi</label>
                 </div>
                 <input type="password" id="password" name="password" class="input" placeholder="••••••••" required>
             </div>
             
-            <button type="submit" class="btn-primary" style="width: 100%; height: 48px; font-size: 1rem;">
-                Sign In
+            <button type="submit" class="btn-primary" style="width: 100%; height: 52px; font-size: 1rem; font-weight: 700; border-radius: 12px;">
+                Masuk ke Sistem
             </button>
         </form>
 
