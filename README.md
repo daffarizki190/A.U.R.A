@@ -1,59 +1,83 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# A.U.R.A (Asset Update & Report Application) 🏢
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**A.U.R.A** (sebelumnya *Dashboard Outstanding Gandaria City*) adalah sistem manajemen pelaporan insiden, pemantauan aset, dan pembuatan Berita Acara (BA) berstandar korporat yang dibangun khusus untuk lingkungan properti Gandaria City. Aplikasi ini memastikan dokumentasi alur kerja berjalan secara transparan, aman, dan tanpa kertas (*paperless*).
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## ✨ Fitur Utama (Core Features)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Dasbor Pemantauan Real-Time**: Panel analitik langsung yang me-*refresh* diri setiap 60 detik untuk memonitor status insiden ("Open", "On Progress", "Pending Approval").
+- **Manajemen Temuan Aset**: Sistem tiket untuk mendokumentasikan aset/kerusakan fasilitas.
+- **Berkas Berita Acara (BA)**: Sistem terpusat untuk membukukan kejadian (Kehilangan, Kerusakan, Serah Terima) lengkap dengan form tanda tangan digital/cetak.
+- **Live File Preview**: Fitur pratinjau lampiran langsung di dalam browser (men-dukung Gambar, PDF, dan ikon Dokumen Word/Excel).
+- **Cetak Dokumen Resmi (A4)**: Sistem konversi *Berita Acara* menjadi *Layout* Cetak Fisik / PDF berstandar KOP Surat Gandaria City tanpa merusak format.
+- **Paging & Optimasi**: Pengolahan data berlapis (Pagination) untuk meminimalisasi kebocoran memori saat data laporan melebihi kapasitas standar.
+- **Role-Based Access Control (RBAC)**: Sistem otoritas ketat. Tidak sembarang orang dapat memberikan status *Approved* (Disetujui). Administrator Utama (CPM) memegang kontrol mutlak atas validasi akhir.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 👥 Aktor & Hak Akses (Roles)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+Sistem ini memfasilitasi 3 jenis profil pengguna utama:
+1. **CPM (Pusat Manajemen / ex: Rizal)** - Pemegang otoritas tertinggi tingkat Manajemen. Sehari-hari hanya peran ini yang memiliki instrumen rahasia untuk melakukan persetujuan akhir (*Approve*) terhadap Berita Acara maupun penyelesaian Temuan Aset.
+2. **SPV (Supervisor / ex: Yamin, Akmal)** - Pengawas keliling operasional harian yang memiliki hak dasar untuk membuat, memantau, dan melaporkan Berita Acara kejadian dari lapangan.
+3. **IT (Tim Teknis / ex: Irvandi)** - Penanggungjawab jaringan/teknologi yang dapat memantau dan memperbarui progres tiket perbaikan dari segi piranti keras (Hardware/Aset IT).
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## 🛠️ Tumpukan Teknologi (Tech Stack)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Aplikasi ini menolak kerangka kerja kaku (*bloated framework*) dan dirancang di atas pondasi fleksibel berkinerja tinggi:
+- **Backend Framework**: Laravel 12.x
+- **Bahasa Pemrograman**: PHP 8.2+
+- **Database Utama**: PostgreSQL tingkat-Enterprise (via Supabase Cloud)
+- **Arsitektur Antarmuka (UI)**: Custom Blade Templating dengan *Glassmorphism CSS Native* (Desain Antarmuka Transparan Premium).
+- **Manajemen Ikon**: File Pustaka SVG murni `Ionicons 7`.
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## 📂 Struktur Direktori Inti (Project Structure)
 
-## Contributing
+Berikut adalah atlas panduan untuk membaca kerangkan proyek AURA:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```text
+A.U.R.A/
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/       # Jantung Logika Sistem (AssetFindingController, BeritaAcaraController)
+│   │   └── Middleware/        # Satpam Keamanan Anti-Hack URL (EnsureUserRole.php)
+│   └── Models/                # Pemetaan/Penghubung Database (BeritaAcara.php, AssetFinding.php, User.php)
+├── database/
+│   ├── migrations/            # Histori Arsitektur Tabel (Supabase PostgreSQL)
+│   └── seeders/               # Komando Pengisi Rekayasa Tabel (Akun Pak Rizal CPM, Pak Yamin SPV)
+├── public/
+│   ├── css/
+│   │   └── app.css            # 🎨 (PENTING) Pusat desain sistem (Warna Gelap, Radius Tombol, CSS Grid)
+│   └── storage/               # Brankas Publik Penyimpanan File Upload (Foto Insiden, Dokumen Bukti)
+├── resources/
+│   └── views/                 # Wajah Front-End Aplikasi
+│       ├── auth/              # Halaman Tampilan Security Gerbang Login AURA
+│       ├── ba/                # Tampilan HTML Berita Acara (Tabel, Print-A4, Detail Preview)
+│       ├── dashboard/         # Tampilan Dasbor Induk (Statistik Kotak Angka Berkedip)
+│       ├── findings/          # Tampilan Laporan Temuan Kendala Aset
+│       └── layouts/
+│           └── app.blade.php  # 💀 Tulang Rusuk Desain Aplikasi (Sidebar Kiri & Background Theme)
+└── routes/
+    └── web.php                # 🚦 Peta Jalan Pintas Terminal URL (Akses Lalu Lintas Endpoints)
+```
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 🚀 Panduan Basis Pengembangan (Development Local Setup)
 
-## Security Vulnerabilities
+Bagi pengembang penerus yang diutus untuk mengambil alih lingkungan uji coba lokal:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+1. Pastikan Anda memiliki PHP 8.2+ dan Composer terinstal secara *Global*.
+2. Buka terminal & jalankan perintah `composer install` pada halaman *root*.
+3. Salin/Atur file `.env` Anda dan isi jalur kredensial koneksi Database `PostgreSQL` Supabase Gandaria City.
+4. (KRUSIAL): Wajib mejalankan `php artisan storage:link` agar sistem sinkronisasi jalur gambar foto pelaporan berfungsi.
+5. Jalankan `php artisan serve` untuk menyalakan reaktor lokal Anda.
+6. Login menggunakan `cpm@gandariacity.com` (Sandi: `password123`).
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+*(Didokumentasikan oleh Tim Pengembangan Infrastruktur Gandaria City - © 2026)*
