@@ -12,6 +12,11 @@ class DashboardController extends Controller
     public function index()
     {
         $user = auth()->user();
+
+        // Role DEV: redirect ke halaman monitoring mereka
+        if ($user->role === 'DEV') {
+            return redirect()->route('dev.status');
+        }
         
         $stats = [
             // Asset Findings
@@ -85,9 +90,14 @@ class DashboardController extends Controller
 
     public function activityLogs()
     {
-        $logs = ActivityLog::with('user')
-            ->latest()
-            ->paginate(15);
+        try {
+            $logs = ActivityLog::with('user')
+                ->latest()
+                ->paginate(15);
+        } catch (\Exception $e) {
+            // Jika tabel belum ada di database, tampilkan paginator kosong
+            $logs = new \Illuminate\Pagination\LengthAwarePaginator([], 0, 15);
+        }
             
         return view('admin.logs', compact('logs'));
     }

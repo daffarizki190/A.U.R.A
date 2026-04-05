@@ -50,14 +50,19 @@ trait LogsActivity
             unset($changes['id'], $changes['created_at'], $changes['updated_at']);
         }
 
-        ActivityLog::create([
-            'user_id' => Auth::id(),
-            'model_type' => get_class($this),
-            'model_id' => $this->id,
-            'action' => $action,
-            'changes' => $changes,
-            'ip_address' => Request::ip(),
-            'user_agent' => Request::userAgent(),
-        ]);
+        try {
+            ActivityLog::create([
+                'user_id'    => Auth::id(),
+                'model_type' => get_class($this),
+                'model_id'   => $this->id,
+                'action'     => $action,
+                'changes'    => $changes,
+                'ip_address' => Request::ip(),
+                'user_agent' => Request::userAgent(),
+            ]);
+        } catch (\Exception $e) {
+            // Tabel activity_logs belum ada — abaikan, jangan crash operasi utama
+            \Illuminate\Support\Facades\Log::warning('ActivityLog gagal: ' . $e->getMessage());
+        }
     }
 }
