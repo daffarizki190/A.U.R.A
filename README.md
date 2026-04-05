@@ -13,15 +13,19 @@
 - **Cetak Dokumen Resmi (A4)**: Sistem konversi *Berita Acara* menjadi *Layout* Cetak Fisik / PDF berstandar KOP Surat Gandaria City tanpa merusak format.
 - **Paging & Optimasi**: Pengolahan data berlapis (Pagination) untuk meminimalisasi kebocoran memori saat data laporan melebihi kapasitas standar.
 - **Role-Based Access Control (RBAC)**: Sistem otoritas ketat. Tidak sembarang orang dapat memberikan status *Approved* (Disetujui). Administrator Utama (CPM) memegang kontrol mutlak atas validasi akhir.
+- **Dev System Health & Latency Monitor**: Sistem pemantauan performa server Vercel dan Database secara real-time menggunakan endpoint `/ping` yang dioptimalkan (HEAD requests).
+- **Audit Activity Logs**: Pencatatan otomatis setiap aksi krusial (Create, Edit, Delete) ke dalam tabel aktivitas sistem untuk keperluan forensik data.
+- **Form Submission Protection**: Mekanisme pencegahan klik ganda (*Anti-Double Click*) dan penanganan cerdas error "419 Page Expired" untuk stabilitas pengalaman pengguna.
 
 ---
 
 ## 👥 Aktor & Hak Akses (Roles)
 
-Sistem ini memfasilitasi 3 jenis profil pengguna utama:
+Sistem ini memfasilitasi 4 jenis profil pengguna utama:
 1. **CPM (Pusat Manajemen / ex: Rizal Maulana)** - Pemegang otoritas tertinggi tingkat Manajemen. Sehari-hari hanya peran ini yang memiliki instrumen rahasia untuk melakukan persetujuan akhir (*Approve*) terhadap Berita Acara maupun penyelesaian Temuan Aset.
 2. **SPV (Supervisor / ex: Yamin, Akmal)** - Pengawas operasional harian yang memiliki hak dasar untuk membuat, memantau, dan melaporkan Berita Acara kejadian dari lapangan.
 3. **IT (Tim Teknis / ex: Irvandi)** - Penanggungjawab jaringan/teknologi yang dapat memantau dan memperbarui progres tiket perbaikan dari segi piranti keras (Hardware/Aset IT).
+4. **DEV (Dev Monitor / ex: Dev Account)** - Peran teknis khusus untuk pemantauan kesehatan infrastruktur, audit log aktivitas, dan performa latensi server secara real-time.
 
 ---
 
@@ -77,7 +81,9 @@ Bagi pengembang penerus yang diutus untuk mengambil alih lingkungan uji coba lok
 3. Salin/Atur file `.env` Anda dan isi jalur kredensial koneksi Database `PostgreSQL` Supabase Gandaria City.
 4. (KRUSIAL): Wajib mejalankan `php artisan storage:link` agar sistem sinkronisasi jalur gambar foto pelaporan berfungsi.
 5. Jalankan `php artisan serve` untuk menyalakan reaktor lokal Anda.
-6. Login menggunakan `cpm@gandariacity.com` (Sandi: `password123`).
+6. Login menggunakan:
+   - **CPM**: `cpm@gandariacity.com` (Sandi: `password123`)
+   - **DEV**: `dev@gandariacity.com` (Sandi: `devmonitor2026!`)
 
 ---
 *(Didokumentasikan oleh Tim Pengembangan Infrastruktur CentralPark Gandaria City - © 2026)*

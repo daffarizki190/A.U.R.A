@@ -3,8 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DevController;
 use App\Http\Controllers\AssetFindingController;
 use App\Http\Controllers\BeritaAcaraController;
+
+Route::get('/ping', function () {
+    return response()->json(['status' => 'ok', 'time' => now()]);
+});
 
 Route::get('/', function () {
     return redirect('/login');
@@ -25,9 +30,6 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
         Route::middleware('role:CPM')->group(function () {
             Route::post('findings/{finding}/approve', [AssetFindingController::class, 'approve'])->name('findings.approve');
             Route::post('findings/{finding}/cancel-approve', [AssetFindingController::class, 'cancelApprove'])->name('findings.cancelApprove');
-            
-            // Audit Trail
-            Route::get('admin/logs', [DashboardController::class, 'activityLogs'])->name('admin.logs');
         });
 
         // Berita Acara — semua user bisa CRUD
@@ -38,6 +40,13 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
         Route::middleware('role:CPM')->group(function () {
             Route::post('ba/{ba}/approve', [BeritaAcaraController::class, 'approve'])->name('ba.approve');
             Route::post('ba/{ba}/cancel-approve', [BeritaAcaraController::class, 'cancelApprove'])->name('ba.cancelApprove');
+        });
+
+        // Dev Monitor & Audit Tracker — hanya DEV & CPM
+        Route::middleware('role:DEV,CPM')->group(function () {
+            Route::get('dev/status', [DevController::class, 'index'])->name('dev.status');
+            Route::get('dev/status/refresh', [DevController::class, 'refresh'])->name('dev.refresh');
+            Route::get('admin/logs', [DashboardController::class, 'activityLogs'])->name('admin.logs');
         });
     });
 

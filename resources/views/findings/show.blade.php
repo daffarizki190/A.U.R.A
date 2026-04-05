@@ -19,7 +19,7 @@
         <p style="color: var(--text-dim); font-size: 1rem;">Laporan kendala aset tertanggal {{ \Carbon\Carbon::parse($finding->finding_date)->format('j F Y') }}</p>
     </div>
     
-    <div style="display: flex; gap: 12px;">
+    <div style="display: flex; gap: 12px; align-items: center;">
         @if($finding->status == 'Pending Approval' && (auth()->id() == $finding->pic_id || auth()->user()->role == 'CPM'))
             <a href="{{ route('findings.edit', $finding->id) }}" class="btn-primary" style="background: rgba(0,0,0,0.03); color: var(--text-main); border: 1px solid var(--border);">
                 <ion-icon name="create-outline" style="margin-right: 8px;"></ion-icon> Edit Laporan
@@ -30,6 +30,19 @@
             <a href="{{ route('findings.edit', $finding->id) }}" class="btn-primary">
                 <ion-icon name="sync-outline" style="margin-right: 8px;"></ion-icon> Perbarui Progres
             </a>
+        @endif
+
+        @if(auth()->user()->role == 'CPM')
+            {{-- Trigger modal, bukan form langsung --}}
+            <button type="button" onclick="openDeleteModal()" style="background: rgba(255,59,48,0.08); border: 1px solid rgba(255,59,48,0.25); color: var(--danger); padding: 10px 18px; border-radius: 12px; font-size: 0.85rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s;" onmouseover="this.style.background='rgba(255,59,48,0.15)'" onmouseout="this.style.background='rgba(255,59,48,0.08)'">
+                <ion-icon name="trash-outline"></ion-icon> Hapus Laporan
+            </button>
+
+            {{-- Form hapus tersembunyi --}}
+            <form id="delete-form" action="{{ route('findings.destroy', $finding->id) }}" method="POST" style="display:none;">
+                @csrf
+                @method('DELETE')
+            </form>
         @endif
     </div>
 </header>
@@ -54,7 +67,7 @@
                 </div>
                 <div>
                     <label style="display: block; font-size: 0.75rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase; margin-bottom: 8px;">Nama Pelapor</label>
-                    <div style="font-weight: 600; font-size: 1rem; color: var(--text-main);">{{ $finding->reporter }}</div>
+                    <div style="font-weight: 600; font-size: 1rem; color: var(--text-main);">{{ $finding->pic?->name ?? $finding->reporter ?? '-' }}</div>
                 </div>
                 <div>
                     <label style="display: block; font-size: 0.75rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase; margin-bottom: 8px;">Penanggung Jawab</label>
@@ -167,9 +180,8 @@
                     @method('PATCH')
                     <div style="display: flex; flex-direction: column; gap: 12px;">
                         <select name="status" class="input" style="font-weight: 600; cursor: pointer;">
-                            <option value="Pending Approval" {{ $finding->status == 'Pending Approval' ? 'selected' : '' }}>Waiting Approved</option>
-                            <option value="Open" {{ $finding->status == 'Open' ? 'selected' : '' }}>Open</option>
-                            <option value="On Progress" {{ $finding->status == 'On Progress' ? 'selected' : '' }}>ON PROGRES</option>
+                            <option value="Pending Approval" {{ $finding->status == 'Pending Approval' ? 'selected' : '' }}>WAITING APPROVED</option>
+                            <option value="On Progress" {{ ($finding->status == 'On Progress' || $finding->status == 'Open') ? 'selected' : '' }}>ON PROGRES</option>
                             <option value="Done" {{ $finding->status == 'Done' ? 'selected' : '' }}>DONE</option>
                         </select>
                         <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 14px; border-radius: 12px;">
@@ -187,4 +199,120 @@
         </div>
     </div>
 </div>
+@if(auth()->user()->role == 'CPM')
+{{-- ═══════════════════════════════════════
+     CUSTOM DELETE MODAL (HIG style)
+═══════════════════════════════════════ --}}
+<div id="delete-modal" style="
+    display: none;
+    position: fixed; inset: 0; z-index: 9999;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    align-items: center;
+    justify-content: center;
+">
+    <div id="delete-modal-box" style="
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        padding: 32px 28px 24px;
+        width: 100%;
+        max-width: 360px;
+        margin: 16px;
+        box-shadow: 0 32px 64px rgba(0,0,0,0.4);
+        transform: scale(0.92) translateY(12px);
+        opacity: 0;
+        transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), opacity 0.2s ease;
+        text-align: center;
+    ">
+        {{-- Ikon bahaya --}}
+        <div style="
+            width: 56px; height: 56px;
+            border-radius: 50%;
+            background: rgba(255,59,48,0.1);
+            border: 1.5px solid rgba(255,59,48,0.25);
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 20px;
+        ">
+            <ion-icon name="trash" style="font-size: 1.6rem; color: var(--danger);"></ion-icon>
+        </div>
+
+        {{-- Judul --}}
+        <div style="font-size: 1.05rem; font-weight: 700; color: var(--text-main); margin-bottom: 8px;">
+            Hapus Laporan?
+        </div>
+
+        {{-- Kode laporan --}}
+        <div style="font-size: 0.8rem; color: var(--text-dim); line-height: 1.6; margin-bottom: 24px;">
+            <strong style="color: var(--danger);">{{ $finding->finding_code }}</strong> akan dihapus permanen.<br>
+            Tindakan ini <strong>tidak dapat dibatalkan</strong>.
+        </div>
+
+        {{-- Tombol aksi --}}
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+            <button onclick="confirmDelete()" style="
+                width: 100%; padding: 13px;
+                background: var(--danger);
+                color: white;
+                border: none;
+                border-radius: 14px;
+                font-size: 0.9rem;
+                font-weight: 700;
+                cursor: pointer;
+                transition: opacity 0.2s;
+            " onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">
+                Ya, Hapus Laporan
+            </button>
+            <button onclick="closeDeleteModal()" style="
+                width: 100%; padding: 13px;
+                background: rgba(255,255,255,0.05);
+                color: var(--text-main);
+                border: 1px solid var(--border);
+                border-radius: 14px;
+                font-size: 0.9rem;
+                font-weight: 600;
+                cursor: pointer;
+                transition: background 0.2s;
+            " onmouseover="this.style.background='rgba(255,255,255,0.09)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">
+                Batal
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+const modal    = document.getElementById('delete-modal');
+const modalBox = document.getElementById('delete-modal-box');
+
+function openDeleteModal() {
+    modal.style.display = 'flex';
+    requestAnimationFrame(() => {
+        modalBox.style.transform = 'scale(1) translateY(0)';
+        modalBox.style.opacity   = '1';
+    });
+}
+
+function closeDeleteModal() {
+    modalBox.style.transform = 'scale(0.92) translateY(12px)';
+    modalBox.style.opacity   = '0';
+    setTimeout(() => { modal.style.display = 'none'; }, 220);
+}
+
+function confirmDelete() {
+    document.getElementById('delete-form').submit();
+}
+
+// Klik backdrop untuk tutup
+modal.addEventListener('click', function(e) {
+    if (e.target === modal) closeDeleteModal();
+});
+
+// Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modal.style.display === 'flex') closeDeleteModal();
+});
+</script>
+@endif
+
 @endsection

@@ -21,7 +21,7 @@
     <div class="stats-grid">
         <div class="stat-card glass-card gradient-card-danger">
             <div class="stat-header">
-                <div class="stat-label">Temuan Open</div>
+                <div class="stat-label">ON PROGRES</div>
                 <ion-icon name="alert-circle" style="color: var(--danger); font-size: 1.5rem;"></ion-icon>
             </div>
             <div class="stat-value">{{ $stats['findings_open'] }}</div>
@@ -89,7 +89,7 @@
                                     <div style="font-weight: 600;">{{ $finding->asset_type }}</div>
                                     <div style="font-size: 0.75rem; color: var(--text-dim);">{{ $finding->location }}</div>
                                 </td>
-                                <td>{{ $finding->reporter }}</td>
+                                <td>{{ $finding->pic?->name ?? $finding->reporter ?? '-' }}</td>
                                 <td>
                                     <a href="{{ route('findings.show', $finding->id) }}" class="btn-primary" style="padding: 6px 12px; font-size: 0.75rem; border-radius: 8px;">Tinjau</a>
                                 </td>
@@ -118,7 +118,7 @@
                         <div>
                             <div style="font-weight: 600; font-size: 0.9rem; color: var(--text-main);">{{ $activity->finding_code }}</div>
                             <div style="font-size: 0.75rem; color: var(--text-dim); margin-top: 2px;">{{ Str::limit($activity->description, 40) }}</div>
-                            <div style="font-size: 0.7rem; color: var(--primary); margin-top: 6px; font-weight: 600;">{{ $activity->status }}</div>
+                            <div style="font-size: 0.7rem; color: var(--primary); margin-top: 6px; font-weight: 600;">{{ $activity->status == 'Pending Approval' ? 'WAITING APPROVED' : ($activity->status == 'Done' ? 'DONE' : 'ON PROGRES') }}</div>
                         </div>
                     </a>
                 @empty
@@ -174,48 +174,83 @@
             @endphp
 
             @if($has_active)
-                <div style="display: flex; flex-direction: column; gap: 12px;">
-                    {{-- Active Findings --}}
-                    @foreach($role_data['active_findings'] as $task)
-                        <div class="task-card" style="border-left: 4px solid var(--primary);">
-                            <div style="flex: 1;">
-                                <div class="task-card-title">{{ $task->finding_code }} <small style="color: var(--text-dim);">[TEMUAN]</small></div>
-                                <div class="task-card-subtitle">{{ $task->asset_type }} • {{ $task->location }}</div>
-                            </div>
-                            <div style="display: flex; align-items: center; gap: 12px;">
-                                <span class="badge badge-onprogres">ON PROGRES</span>
-                                <a href="{{ route('findings.show', $task->id) }}" class="btn-primary" style="padding: 6px 12px; font-size: 0.75rem;">Buka</a>
-                            </div>
-                        </div>
-                    @endforeach
+                <div style="display: flex; flex-direction: column; gap: 24px;">
 
-                    {{-- Active BA --}}
-                    @foreach($role_data['active_ba'] as $ba)
-                        <div class="task-card" style="border-left: 4px solid var(--warning);">
-                            <div style="flex: 1;">
-                                <div class="task-card-title">{{ $ba->ba_number }} <small style="color: var(--text-dim);">[BA]</small></div>
-                                <div class="task-card-subtitle">{{ $ba->ba_type }} • {{ $ba->customer_name }}</div>
+                    {{-- LAYER 1: Active Findings (Temuan) --}}
+                    @if(count($role_data['active_findings']) > 0)
+                        <div style="background: rgba(0, 122, 255, 0.04); border: 1px solid rgba(0, 122, 255, 0.15); border-radius: 16px; overflow: hidden;">
+                            <div style="padding: 12px 18px; border-bottom: 1px solid rgba(0, 122, 255, 0.12); display: flex; align-items: center; gap: 8px;">
+                                <ion-icon name="build" style="color: var(--primary); font-size: 0.9rem;"></ion-icon>
+                                <span style="font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--primary);">Temuan Aset</span>
+                                <span style="margin-left: auto; background: rgba(0,122,255,0.15); color: var(--primary); font-size: 0.68rem; font-weight: 700; padding: 2px 8px; border-radius: 20px;">{{ count($role_data['active_findings']) }}</span>
                             </div>
-                            <div style="display: flex; align-items: center; gap: 12px;">
-                                <span class="badge badge-processing">DI PROSES</span>
-                                <a href="{{ route('ba.show', $ba->id) }}" class="btn-primary" style="padding: 6px 12px; font-size: 0.75rem; background: var(--text-main);">Buka</a>
+                            <div style="display: flex; flex-direction: column;">
+                                @foreach($role_data['active_findings'] as $task)
+                                    <div style="display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; border-bottom: 1px solid rgba(0,0,0,0.04);">
+                                        <div style="flex: 1; min-width: 0;">
+                                            <div style="font-weight: 700; font-size: 0.88rem; color: var(--text-main);">{{ $task->finding_code }}</div>
+                                            <div style="font-size: 0.75rem; color: var(--text-dim); margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ $task->asset_type }} • {{ $task->location }}</div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; gap: 10px; flex-shrink: 0; margin-left: 12px;">
+                                            <span class="badge badge-onprogres">ON PROGRES</span>
+                                            <a href="{{ route('findings.show', $task->id) }}" class="btn-primary" style="padding: 5px 12px; font-size: 0.73rem; border-radius: 8px;">Buka</a>
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
-                    @endforeach
+                    @endif
 
-                    {{-- Waiting Findings --}}
-                    @foreach($role_data['waiting_findings'] as $waiting)
-                        <div class="task-card" style="background: rgba(0,0,0,0.01); border-style: dashed;">
-                            <div style="flex: 1;">
-                                <div class="task-card-title">{{ $waiting->finding_code }}</div>
-                                <div class="task-card-subtitle">Menunggu Persetujuan CPM</div>
+                    {{-- LAYER 2: Active BA (Berita Acara) --}}
+                    @if(count($role_data['active_ba']) > 0)
+                        <div style="background: rgba(255, 149, 0, 0.04); border: 1px solid rgba(255, 149, 0, 0.2); border-radius: 16px; overflow: hidden;">
+                            <div style="padding: 12px 18px; border-bottom: 1px solid rgba(255, 149, 0, 0.12); display: flex; align-items: center; gap: 8px;">
+                                <ion-icon name="document-text" style="color: var(--warning); font-size: 0.9rem;"></ion-icon>
+                                <span style="font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--warning);">Berita Acara</span>
+                                <span style="margin-left: auto; background: rgba(255,149,0,0.15); color: var(--warning); font-size: 0.68rem; font-weight: 700; padding: 2px 8px; border-radius: 20px;">{{ count($role_data['active_ba']) }}</span>
                             </div>
-                            <div style="display: flex; align-items: center; gap: 12px;">
-                                <span class="badge badge-pendingapproval">WAITING</span>
-                                <a href="{{ route('findings.show', $waiting->id) }}" class="btn-primary" style="padding: 6px 12px; font-size: 0.75rem; background: var(--border); color: var(--text-main);">Detail</a>
+                            <div style="display: flex; flex-direction: column;">
+                                @foreach($role_data['active_ba'] as $ba)
+                                    <div style="display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; border-bottom: 1px solid rgba(0,0,0,0.04);">
+                                        <div style="flex: 1; min-width: 0;">
+                                            <div style="font-weight: 700; font-size: 0.88rem; color: var(--text-main);">{{ $ba->ba_number }}</div>
+                                            <div style="font-size: 0.75rem; color: var(--text-dim); margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ $ba->ba_type }} • {{ $ba->customer_name }}</div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; gap: 10px; flex-shrink: 0; margin-left: 12px;">
+                                            <span class="badge badge-onprogres">ON PROGRES</span>
+                                            <a href="{{ route('ba.show', $ba->id) }}" class="btn-primary" style="padding: 5px 12px; font-size: 0.73rem; border-radius: 8px;">Buka</a>
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
-                    @endforeach
+                    @endif
+
+                    {{-- LAYER 3: Waiting Approval --}}
+                    @if(count($role_data['waiting_findings']) > 0)
+                        <div style="background: rgba(255, 214, 10, 0.03); border: 1px dashed rgba(255, 214, 10, 0.35); border-radius: 16px; overflow: hidden;">
+                            <div style="padding: 12px 18px; border-bottom: 1px dashed rgba(255, 214, 10, 0.2); display: flex; align-items: center; gap: 8px;">
+                                <ion-icon name="time" style="color: var(--accent); font-size: 0.9rem;"></ion-icon>
+                                <span style="font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent);">Menunggu Persetujuan CPM</span>
+                                <span style="margin-left: auto; background: rgba(255,214,10,0.15); color: var(--accent); font-size: 0.68rem; font-weight: 700; padding: 2px 8px; border-radius: 20px;">{{ count($role_data['waiting_findings']) }}</span>
+                            </div>
+                            <div style="display: flex; flex-direction: column;">
+                                @foreach($role_data['waiting_findings'] as $waiting)
+                                    <div style="display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; border-bottom: 1px solid rgba(0,0,0,0.04);">
+                                        <div style="flex: 1; min-width: 0;">
+                                            <div style="font-weight: 700; font-size: 0.88rem; color: var(--text-main);">{{ $waiting->finding_code }}</div>
+                                            <div style="font-size: 0.75rem; color: var(--text-dim); margin-top: 2px;">{{ $waiting->asset_type }} • {{ $waiting->location }}</div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; gap: 10px; flex-shrink: 0; margin-left: 12px;">
+                                            <span class="badge badge-pendingapproval">WAITING APPROVED</span>
+                                            <a href="{{ route('findings.show', $waiting->id) }}" class="btn-primary" style="padding: 5px 12px; font-size: 0.73rem; border-radius: 8px; background: rgba(255,255,255,0.06); color: var(--text-main);">Detail</a>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
+
                 </div>
             @else
                 <div class="empty-state">

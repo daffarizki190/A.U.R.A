@@ -20,9 +20,8 @@
             <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase; margin-bottom: 8px; display: block;">Filter Status</label>
             <select name="status" class="input" style="height: 48px;">
                 <option value="">Semua Status</option>
-                <option value="Pending Approval" {{ request('status') == 'Pending Approval' ? 'selected' : '' }}>Waiting Approved</option>
-                <option value="Open" {{ request('status') == 'Open' ? 'selected' : '' }}>Open</option>
-                <option value="On Progress" {{ request('status') == 'On Progress' ? 'selected' : '' }}>ON PROGRES</option>
+                <option value="Pending Approval" {{ request('status') == 'Pending Approval' ? 'selected' : '' }}>WAITING APPROVED</option>
+                <option value="On Progress" {{ (request('status') == 'On Progress' || request('status') == 'Open') ? 'selected' : '' }}>ON PROGRES</option>
                 <option value="Done" {{ request('status') == 'Done' ? 'selected' : '' }}>DONE</option>
             </select>
         </div>
@@ -69,8 +68,8 @@
                         </div>
                     </td>
                     <td>
-                        <span class="badge badge-{{ strtolower(str_replace(' ', '', $finding->status)) }}">
-                            {{ str_replace('On Progress', 'ON PROGRES', str_replace('Done', 'DONE', $finding->status)) }}
+                        <span class="badge badge-{{ strtolower(str_replace(' ', '', $finding->status == 'Open' ? 'On Progress' : $finding->status)) }}">
+                            {{ $finding->status == 'Pending Approval' ? 'WAITING APPROVED' : ($finding->status == 'Done' ? 'DONE' : 'ON PROGRES') }}
                         </span>
                     </td>
                     <td style="text-align: right;">
