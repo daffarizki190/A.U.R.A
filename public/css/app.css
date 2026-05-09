@@ -1,31 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-    --bg-main: #0b0e14;
-    --bg-header: rgba(11, 14, 20, 0.8);
-    --surface: rgba(28, 28, 30, 0.7);
-    --surface-bright: rgba(44, 44, 46, 0.8);
-    --border: rgba(255, 255, 255, 0.1);
-    --border-bold: rgba(255, 255, 255, 0.2);
+    --bg-main: #0a0c10;
+    --bg-header: rgba(10, 12, 16, 0.85);
+    --surface: rgba(23, 25, 30, 0.7);
+    --surface-bright: rgba(35, 38, 45, 0.85);
+    --border: rgba(255, 255, 255, 0.08);
+    --border-bold: rgba(255, 255, 255, 0.15);
     
-    --primary: #007aff;
-    --primary-hover: #0062cc;
-    --accent: #ffcc00;
-    --success: #34c759;
-    --danger: #ff3b30;
-    --warning: #ff9500;
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --primary-glow: rgba(37, 99, 235, 0.3);
+    --accent: #facc15;
+    --success: #22c55e;
+    --danger: #ef4444;
+    --warning: #f59e0b;
     
-    --text-main: #ffffff;
-    --text-dim: #8e8e93;
-    --text-secondary: #aeaeb2;
+    --text-main: #f8fafc;
+    --text-dim: #94a3b8;
+    --text-secondary: #cbd5e1;
     
-    --glass-blur: blur(12px);
-    --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.5);
-    --shadow-bold: 0 8px 24px rgba(0, 0, 0, 0.6);
+    --glass-blur: blur(16px);
+    --shadow-soft: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+    --shadow-bold: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.5);
     
-    --radius-s: 8px;
-    --radius-m: 12px;
-    --radius-l: 16px;
+    --radius-s: 10px;
+    --radius-m: 14px;
+    --radius-l: 20px;
     --radius-full: 9999px;
 }
 
@@ -220,11 +221,34 @@ body {
     letter-spacing: 0.03em;
 }
 
-.badge-pendingapproval { background: rgba(0, 122, 255, 0.15); color: var(--primary); border: 1px solid rgba(0, 122, 255, 0.3); }
-.badge-open { background: rgba(255, 59, 48, 0.15); color: var(--danger); border: 1px solid rgba(255, 59, 48, 0.3); }
-.badge-approved { background: rgba(52, 199, 89, 0.15); color: var(--success); border: 1px solid rgba(52, 199, 89, 0.3); }
-.badge-done { background: rgba(52, 199, 89, 0.15); color: var(--success); border: 1px solid rgba(52, 199, 89, 0.3); }
-.badge-processed { background: rgba(255, 149, 0, 0.15); color: var(--warning); border: 1px solid rgba(255, 149, 0, 0.3); }
+.badge-pendingapproval { background: rgba(37, 99, 235, 0.12); color: var(--primary); border: 1px solid rgba(37, 99, 235, 0.2); }
+.badge-open { background: rgba(239, 68, 68, 0.12); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.2); }
+.badge-approved, .badge-done { background: rgba(34, 197, 94, 0.12); color: var(--success); border: 1px solid rgba(34, 197, 94, 0.2); }
+.badge-processed { background: rgba(245, 158, 11, 0.12); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.2); }
+
+.badge-pulse {
+    position: relative;
+}
+
+.badge-pulse::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: currentColor;
+    border-radius: 50%;
+    left: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    box-shadow: 0 0 8px currentColor;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; transform: translateY(-50%) scale(1); }
+    50% { opacity: 0.4; transform: translateY(-50%) scale(1.2); }
+    100% { opacity: 1; transform: translateY(-50%) scale(1); }
+}
 
 /* Buttons */
 .btn-primary {
