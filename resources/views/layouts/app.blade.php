@@ -43,9 +43,13 @@
                 <nav style="flex: 1;">
                     @if(auth()->user()->role === 'DEV')
                         {{-- DEV: hanya menu monitoring --}}
-                        <a href="{{ route('dev.status') }}" class="nav-link {{ request()->is('dev*') ? 'active' : '' }}">
+                        <a href="{{ route('dev.status') }}" class="nav-link {{ request()->is('dev/status*') ? 'active' : '' }}">
                             <ion-icon name="pulse"></ion-icon>
                             Status Sistem
+                        </a>
+                        <a href="{{ route('dev.users') }}" class="nav-link {{ request()->is('dev/users*') ? 'active' : '' }}">
+                            <ion-icon name="people-circle"></ion-icon>
+                            Kelola Pengguna
                         </a>
                         <a href="{{ route('admin.logs') }}" class="nav-link {{ request()->is('admin/logs*') ? 'active' : '' }}">
                             <ion-icon name="journal"></ion-icon>
