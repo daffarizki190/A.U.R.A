@@ -16,6 +16,20 @@
 </head>
 
 <body>
+    {{-- Global Full-Page Loader --}}
+    <div id="global-loader" style="display: none; position: fixed; inset: 0; background: var(--bg-header); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); z-index: 9999; flex-direction: column; align-items: center; justify-content: center; gap: 20px;">
+        <div class="loader-card glass-card" style="padding: 30px 50px; display: flex; flex-direction: column; align-items: center; border-color: var(--primary);">
+            <div style="position: relative; width: 60px; height: 60px;">
+                <ion-icon name="sync-outline" style="font-size: 60px; color: var(--primary); animation: spin 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;"></ion-icon>
+                <ion-icon name="flash" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: var(--accent); font-size: 20px;"></ion-icon>
+            </div>
+            <div style="margin-top: 20px; text-align: center;">
+                <div style="font-weight: 800; font-size: 1.1rem; letter-spacing: -0.02em; color: var(--text-main);">MEMUAT DATA</div>
+                <div style="font-size: 0.75rem; color: var(--text-dim); margin-top: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;">A.U.R.A Gandaria City</div>
+            </div>
+        </div>
+    </div>
+
     @auth
         <div class="dashboard-layout">
             <aside class="sidebar">
@@ -139,8 +153,22 @@
             if (submitBtn) reEnableButton(submitBtn);
         });
 
-        // Pastikan semua tombol aktif kembali saat halaman dimuat (termasuk navigasi 'Back')
+        // Global Full-Page Loader for Turbo Transitions
+        document.addEventListener('turbo:click', () => {
+            const loader = document.getElementById('global-loader');
+            if(loader) loader.style.display = 'flex';
+        });
+
         document.addEventListener('turbo:load', () => {
+            const loader = document.getElementById('global-loader');
+            if(loader) {
+                // Beri sedikit delay agar transisi tidak terlalu "kedip" jika koneksi sangat cepat
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 100);
+            }
+            
+            // Re-enable buttons
             document.querySelectorAll('button[type="submit"]').forEach(reEnableButton);
         });
 
