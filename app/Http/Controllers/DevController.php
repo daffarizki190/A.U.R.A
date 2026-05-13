@@ -231,4 +231,56 @@ class DevController extends Controller
 
         return $alerts;
     }
+
+    // ─────────────────────────────────────────────
+    //  User Management (DEV Only)
+    // ─────────────────────────────────────────────
+
+    public function users()
+    {
+        $users = User::latest()->get();
+        return view('dev.users', compact('users'));
+    }
+
+    public function storeUser(Request $request)
+    {
+        $request->validate([
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|email|unique:users,email',
+            'password' => 'required|string|min:6',
+            'role'     => 'required|in:CPM,SPV,IT,DEV',
+        ]);
+
+        User::create([
+            'name'     => $request->name,
+            'email'    => $request->email,
+            'password' => bcrypt($request->password),
+            'role'     => $request->role,
+        ]);
+
+        return back()->with('success', 'User berhasil ditambahkan.');
+    }
+
+    public function updatePassword(Request $request, User $user)
+    {
+        $request->validate([
+            'password' => 'required|string|min:6',
+        ]);
+
+        $user->update([
+            'password' => bcrypt($request->password),
+        ]);
+
+        return back()->with('success', 'Password user ' . $user->name . ' berhasil diperbarui.');
+    }
+
+    public function deleteUser(User $user)
+    {
+        if ($user->id === auth()->id()) {
+            return back()->with('error', 'Anda tidak dapat menghapus akun Anda sendiri.');
+        }
+
+        $user->delete();
+        return back()->with('success', 'User berhasil dihapus.');
+    }
 }

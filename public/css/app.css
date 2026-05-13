@@ -359,6 +359,23 @@ select.input option {
     to   { transform: rotate(360deg); }
 }
 
+.loader-card {
+    background: var(--bg-main);
+    border-width: 2px;
+    box-shadow: 0 0 40px var(--primary-glow);
+    animation: loaderSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes loaderSlideIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
 .main-content > * {
     animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }

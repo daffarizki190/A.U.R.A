@@ -52,7 +52,12 @@ class BeritaAcaraController extends Controller
         ]);
 
         $code = 'BA/' . date('Y/m/') . str_pad(BeritaAcara::count() + 1, 3, '0', STR_PAD_LEFT);
-        $data = $request->except('attachment');
+        $data = $request->except(['attachment', 'ba_type_other']);
+
+        // Handle "Lainnya" type
+        if ($request->ba_type === 'Lainnya' && $request->ba_type_other) {
+            $data['ba_type'] = strtoupper($request->ba_type_other);
+        }
 
         if ($request->hasFile('attachment')) {
             $data['attachment'] = $request->file('attachment')->store('ba_attachments', 's3');
@@ -118,7 +123,12 @@ class BeritaAcaraController extends Controller
             'attachment' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,png,jpg,jpeg|max:10240',
         ]);
 
-        $data = $request->except('attachment');
+        $data = $request->except(['attachment', 'ba_type_other']);
+
+        // Handle "Lainnya" type
+        if ($request->ba_type === 'Lainnya' && $request->ba_type_other) {
+            $data['ba_type'] = strtoupper($request->ba_type_other);
+        }
 
         if ($request->hasFile('attachment')) {
             $data['attachment'] = $request->file('attachment')->store('ba_attachments', 's3');

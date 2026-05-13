@@ -26,6 +26,9 @@
                     <option value="Insiden Keamanan">Insiden Keamanan</option>
                     <option value="Lainnya">Lainnya</option>
                 </select>
+                <div id="ba_type_other_container" style="display: none; margin-top: 12px;">
+                    <input type="text" name="ba_type_other" id="ba_type_other" class="input" placeholder="Sebutkan jenis insiden lainnya..." style="text-transform: uppercase;" oninput="this.value = this.value.toUpperCase()">
+                </div>
             </div>
             
             <div class="form-group">
@@ -88,6 +91,19 @@
 </div>
 
 <script>
+    document.querySelector('select[name="ba_type"]').addEventListener('change', function() {
+        const otherContainer = document.getElementById('ba_type_other_container');
+        const otherInput = document.getElementById('ba_type_other');
+        
+        if (this.value === 'Lainnya') {
+            otherContainer.style.display = 'block';
+            otherInput.setAttribute('required', 'required');
+        } else {
+            otherContainer.style.display = 'none';
+            otherInput.removeAttribute('required');
+        }
+    });
+
     function previewBAFile(event) {
         const file = event.target.files[0];
         if(!file) return;

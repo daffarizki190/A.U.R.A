@@ -47,6 +47,14 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
             Route::get('dev/status', [DevController::class, 'index'])->name('dev.status');
             Route::get('dev/status/refresh', [DevController::class, 'refresh'])->name('dev.refresh');
             Route::get('admin/logs', [DashboardController::class, 'activityLogs'])->name('admin.logs');
+
+            // User Management (Hanya DEV yang bisa akses CRUD penuh sesuai permintaan)
+            Route::middleware('role:DEV')->group(function () {
+                Route::get('dev/users', [DevController::class, 'users'])->name('dev.users');
+                Route::post('dev/users', [DevController::class, 'storeUser'])->name('dev.users.store');
+                Route::put('dev/users/{user}/password', [DevController::class, 'updatePassword'])->name('dev.users.password');
+                Route::delete('dev/users/{user}', [DevController::class, 'deleteUser'])->name('dev.users.delete');
+            });
         });
     });
 
