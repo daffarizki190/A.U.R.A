@@ -26,7 +26,7 @@
         "APP_URL": "https://a-u-r-a.vercel.app",
         "LOG_CHANNEL": "stderr",
         "DB_CONNECTION": "pgsql",
-        "DB_HOST": "aws-1-ap-northeast-2.pooler.supabase.com",
+        "DB_HOST": "aws-1-ap-northeast-1.pooler.supabase.com",
         "DB_PORT": "6543",
         "DB_DATABASE": "postgres",
         "DB_USERNAME": "postgres.uaoikjhmemvtxnnqdgfr",
